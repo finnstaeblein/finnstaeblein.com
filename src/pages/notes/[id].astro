@@ -1,0 +1,154 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import RatingDisplay from '../../components/RatingDisplay.astro';
+import Divider from '../../components/Divider.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes', ({ data }) => !data.draft);
+  return notes.map(note => ({
+    params: { id: note.id },
+    props: { note },
+  }));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+
+const dateStr = note.data.date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<PageLayout title={`${note.data.title} — Finn Stäblein`}>
+  <article class="note-detail">
+    <div class="note-back">
+      <a href="/notes" class="back-link">&larr; All notes</a>
+    </div>
+
+    <header class="note-header">
+      <span class="label">{note.data.category}</span>
+      <h1>{note.data.title}</h1>
+      <p class="note-creator">{note.data.creator}</p>
+
+      <div class="note-meta">
+        {note.data.rating != null && (
+          <div class="note-rating">
+            <RatingDisplay rating={note.data.rating} />
+            <span class="mono rating-num">{note.data.rating}/10</span>
+          </div>
+        )}
+        <time class="note-date mono" datetime={note.data.date.toISOString()}>
+          {dateStr}
+        </time>
+      </div>
+
+      {note.data.tags.length > 0 && (
+        <div class="note-tags">
+          {note.data.tags.map(tag => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+      )}
+
+      {note.data.url && (
+        <a href={note.data.url} class="note-link mono" target="_blank" rel="noopener noreferrer">
+          Source &nearr;
+        </a>
+      )}
+    </header>
+
+    <Divider spacing="md" />
+
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</PageLayout>
+
+<style>
+  .note-detail {
+    max-width: var(--content-width);
+  }
+
+  .back-link {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.04em;
+    color: var(--color-text-secondary);
+    transition: color var(--duration-fast) ease;
+  }
+
+  .back-link:hover {
+    color: var(--color-text);
+  }
+
+  .note-header {
+    margin-top: var(--space-8);
+  }
+
+  .note-header .label {
+    margin-bottom: var(--space-3);
+    display: block;
+    color: var(--color-accent);
+  }
+
+  .note-header h1 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-2);
+  }
+
+  .note-creator {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-4);
+  }
+
+  .note-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    margin-bottom: var(--space-3);
+  }
+
+  .note-rating {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .rating-num {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .note-date {
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+  }
+
+  .note-tags {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-3);
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.04em;
+    padding: var(--space-1) var(--space-2);
+    border: 0.5px solid var(--color-border);
+    color: var(--color-text-secondary);
+  }
+
+  .note-link {
+    font-size: var(--text-xs);
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+</style>

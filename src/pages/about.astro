@@ -1,0 +1,118 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import SplitPane from '../components/SplitPane.astro';
+---
+
+<PageLayout title="About — Finn Stäblein" description="About Finn Stäblein.">
+  <SplitPane>
+    <div slot="left" class="about-text">
+      <h2 class="section-label label">This site</h2>
+
+      <p>
+        Hey, I'm Finn. This is a place where I keep notes on things I'm reading, watching, and working on.
+      </p>
+
+      <p>
+        It's a living document - a place to think in public and keep track of what's shaped my perspective.
+      </p>
+
+      <h2 class="section-label label">About me</h2>
+
+      <p>
+        I grew up in the scenic landscape of Southern Germany with a love for sports, science, and the outdoors. I started rowing when I was 10, and the sport shaped my life immensely for the next 8 years. It taught me the value of discipline, perseverance, and shaping a purpose. At the age of 18, I realized a dream by representing Germany as part of the national rowing team, winning gold at the Junior World Championships in the Men's Double.
+      </p>
+
+      <p>
+        Driven by the same desire of creating a purpose, I developed an interest in entrepreneurship. So, at 17, I moved to Berlin to join Europe's fastest-growing startup at the time.
+      </p>
+
+      <p>
+        Now at Stanford, I'm majoring in Computer Science with a focus on Computational Biology. Last summer I was using Machine Learning at Juna.ai to improve the efficiency of an oil refinery and in doing so reduce the emissions needed to power our cars and heavy industries.
+      </p>
+
+      <p>
+        I also work at SAIVA where we use electronic health records to improve care in elderly facilities. For example, we predict when patients are at risk of rehospitalization and alert the facility, so they can try to prevent it. A lot of my time is spent on making sense of data and building a Claude Code pipeline that speeds up and improves the quality of the work of the engineering team.
+      </p>
+
+      <p class="about-contact">
+        Feel free to reach out via
+        <a href="https://linkedin.com/in/finnstablein" class="contact-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>,
+        <a href="mailto:finnst@stanford.edu" class="contact-link">email</a>,
+        or join me for a run or bike ride around the Bay!
+      </p>
+    </div>
+
+    <div slot="right" class="about-images">
+      <!-- Replace these with your actual photos -->
+      <div class="image-placeholder fade-in">
+        <span class="mono">photo 1</span>
+      </div>
+      <div class="image-placeholder fade-in">
+        <span class="mono">photo 2</span>
+      </div>
+      <div class="image-placeholder fade-in">
+        <span class="mono">photo 3</span>
+      </div>
+    </div>
+  </SplitPane>
+</PageLayout>
+
+<style>
+  .about-text {
+    max-width: 480px;
+  }
+
+  .section-label {
+    margin-bottom: var(--space-6);
+    margin-top: var(--space-12);
+  }
+
+  .section-label:first-child {
+    margin-top: 0;
+  }
+
+  .about-text p {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+  }
+
+  .about-contact {
+    margin-top: var(--space-4);
+  }
+
+  .contact-link {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color var(--duration-fast) ease;
+  }
+
+  .contact-link:hover {
+    color: var(--color-accent-hover);
+  }
+
+  .about-images {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .image-placeholder {
+    aspect-ratio: 4/3;
+    background: var(--color-surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+  }
+
+  /* When you add real images, use:
+  .about-images img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  */
+</style>

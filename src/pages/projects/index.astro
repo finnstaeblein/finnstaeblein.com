@@ -1,0 +1,53 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import Divider from '../../components/Divider.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects', ({ data }) => !data.draft);
+const projects = allProjects.sort((a, b) => a.data.order - b.data.order);
+---
+
+<PageLayout title="Projects — Finn Stäblein" description="Things I've worked on.">
+  <div class="projects-page">
+    <div class="projects-header">
+      <h1>Projects</h1>
+      <p class="projects-subtitle">Things I've built and worked on.</p>
+    </div>
+
+    <Divider spacing="md" />
+
+    <div class="projects-list">
+      {projects.map(project => (
+        <ProjectCard
+          id={project.id}
+          title={project.data.title}
+          description={project.data.description}
+          date={project.data.date}
+          stack={project.data.stack}
+          repo={project.data.repo}
+          link={project.data.link}
+        />
+      ))}
+    </div>
+  </div>
+</PageLayout>
+
+<style>
+  .projects-page {
+    max-width: var(--content-width);
+  }
+
+  .projects-header h1 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-2);
+  }
+
+  .projects-subtitle {
+    color: var(--color-text-secondary);
+  }
+
+  .projects-list {
+    border-top: 0.5px solid var(--color-border);
+  }
+</style>

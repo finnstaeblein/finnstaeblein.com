@@ -1,0 +1,89 @@
+---
+const currentPath = Astro.url.pathname;
+
+const links = [
+  { href: '/about', label: 'About' },
+  { href: '/notes', label: 'Notes' },
+  { href: '/projects', label: 'Projects' },
+];
+---
+
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="header-name" transition:persist>Finn Stäblein</a>
+    <nav class="header-nav">
+      {links.map(link => (
+        <a
+          href={link.href}
+          class:list={['nav-link', { active: currentPath.startsWith(link.href) }]}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--color-bg);
+    border-bottom: 0.5px solid var(--color-border);
+  }
+
+  .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--space-4) var(--space-6);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-name {
+    font-weight: 500;
+    font-size: var(--text-sm);
+    letter-spacing: -0.01em;
+  }
+
+  .header-nav {
+    display: flex;
+    gap: var(--space-6);
+  }
+
+  .nav-link {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    position: relative;
+    transition: color var(--duration-fast) ease;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--color-text);
+  }
+
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+</style>

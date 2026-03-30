@@ -1,0 +1,99 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  description: string;
+  date: Date;
+  stack?: string[];
+  repo?: string;
+  link?: string;
+}
+
+const { id, title, description, date, stack = [], repo, link } = Astro.props;
+
+const year = date.getFullYear();
+---
+
+<a href={`/projects/${id}`} class="project-card">
+  <div class="project-top">
+    <span class="project-year mono">{year}</span>
+    {stack.length > 0 && (
+      <div class="project-stack">
+        {stack.map(tech => (
+          <span class="stack-tag">{tech}</span>
+        ))}
+      </div>
+    )}
+  </div>
+  <h3 class="project-title">{title}</h3>
+  <p class="project-desc">{description}</p>
+  <div class="project-links">
+    {repo && <span class="project-link-hint mono">repo</span>}
+    {link && <span class="project-link-hint mono">live</span>}
+  </div>
+</a>
+
+<style>
+  .project-card {
+    display: block;
+    padding: var(--space-6);
+    border-bottom: 0.5px solid var(--color-border);
+    transition:
+      background var(--duration-base) var(--ease-out);
+  }
+
+  .project-card:hover {
+    background: var(--color-surface);
+  }
+
+  .project-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-2);
+  }
+
+  .project-year {
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+  }
+
+  .project-stack {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .stack-tag {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.04em;
+    color: var(--color-text-secondary);
+    padding: var(--space-1) var(--space-2);
+    border: 0.5px solid var(--color-border);
+  }
+
+  .project-title {
+    font-size: var(--text-lg);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-2);
+  }
+
+  .project-desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+  }
+
+  .project-links {
+    display: flex;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+  }
+
+  .project-link-hint {
+    font-size: var(--text-xs);
+    color: var(--color-accent);
+  }
+</style>

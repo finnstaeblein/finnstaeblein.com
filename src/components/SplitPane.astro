@@ -1,0 +1,47 @@
+---
+// Split-pane layout: sticky left column, scrolling right column
+// Inspired by helioteles.com
+---
+
+<div class="split-pane">
+  <div class="split-left">
+    <slot name="left" />
+  </div>
+  <div class="split-right">
+    <slot name="right" />
+  </div>
+</div>
+
+<style>
+  .split-pane {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    min-height: calc(100vh - 200px);
+  }
+
+  .split-left {
+    position: sticky;
+    top: calc(57px + var(--space-12));
+    align-self: start;
+    padding-right: var(--space-8);
+  }
+
+  .split-right {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .split-pane {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+
+    .split-left {
+      position: static;
+      padding-right: 0;
+    }
+  }
+</style>

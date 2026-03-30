@@ -1,0 +1,23 @@
+---
+interface Props {
+  spacing?: 'sm' | 'md' | 'lg';
+}
+
+const { spacing = 'md' } = Astro.props;
+
+const spacingMap = {
+  sm: 'var(--space-4)',
+  md: 'var(--space-8)',
+  lg: 'var(--space-16)',
+};
+---
+
+<hr class="divider" style={`--divider-spacing: ${spacingMap[spacing]}`} />
+
+<style>
+  .divider {
+    border: none;
+    border-top: 0.5px solid var(--color-border);
+    margin: var(--divider-spacing) 0;
+  }
+</style>

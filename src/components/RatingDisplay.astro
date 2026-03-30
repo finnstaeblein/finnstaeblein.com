@@ -1,0 +1,34 @@
+---
+interface Props {
+  rating: number;
+  max?: number;
+}
+
+const { rating, max = 10 } = Astro.props;
+---
+
+<span class="rating" aria-label={`${rating} out of ${max}`}>
+  {Array.from({ length: max }, (_, i) => (
+    <span class:list={['dot', { filled: i < rating }]} />
+  ))}
+</span>
+
+<style>
+  .rating {
+    display: inline-flex;
+    gap: 3px;
+    align-items: center;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-border);
+    transition: background var(--duration-fast) ease;
+  }
+
+  .dot.filled {
+    background: var(--color-accent);
+  }
+</style>

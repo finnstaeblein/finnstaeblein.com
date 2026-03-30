@@ -1,0 +1,139 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Divider from '../../components/Divider.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects', ({ data }) => !data.draft);
+  return projects.map(project => ({
+    params: { id: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+const dateStr = project.data.date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+});
+---
+
+<PageLayout title={`${project.data.title} — Finn Stäblein`}>
+  <article class="project-detail">
+    <div class="project-back">
+      <a href="/projects" class="back-link">&larr; All projects</a>
+    </div>
+
+    <header class="project-header">
+      <h1>{project.data.title}</h1>
+      <p class="project-desc">{project.data.description}</p>
+
+      <div class="project-meta">
+        <time class="mono">{dateStr}</time>
+        {project.data.stack.length > 0 && (
+          <div class="project-stack">
+            {project.data.stack.map(tech => (
+              <span class="stack-tag">{tech}</span>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div class="project-links">
+        {project.data.repo && (
+          <a href={project.data.repo} class="ext-link mono" target="_blank" rel="noopener noreferrer">
+            Repository &nearr;
+          </a>
+        )}
+        {project.data.link && (
+          <a href={project.data.link} class="ext-link mono" target="_blank" rel="noopener noreferrer">
+            Live site &nearr;
+          </a>
+        )}
+      </div>
+    </header>
+
+    <Divider spacing="md" />
+
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</PageLayout>
+
+<style>
+  .project-detail {
+    max-width: var(--content-width);
+  }
+
+  .back-link {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.04em;
+    color: var(--color-text-secondary);
+    transition: color var(--duration-fast) ease;
+  }
+
+  .back-link:hover {
+    color: var(--color-text);
+  }
+
+  .project-header {
+    margin-top: var(--space-8);
+  }
+
+  .project-header h1 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-2);
+  }
+
+  .project-desc {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-4);
+  }
+
+  .project-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-3);
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+  }
+
+  .project-stack {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .stack-tag {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.04em;
+    padding: var(--space-1) var(--space-2);
+    border: 0.5px solid var(--color-border);
+    color: var(--color-text-secondary);
+  }
+
+  .project-links {
+    display: flex;
+    gap: var(--space-4);
+  }
+
+  .ext-link {
+    font-size: var(--text-xs);
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color var(--duration-fast) ease;
+  }
+
+  .ext-link:hover {
+    color: var(--color-accent-hover);
+  }
+</style>

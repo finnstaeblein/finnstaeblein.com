@@ -1,0 +1,217 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import NoteCard from '../../components/NoteCard.astro';
+import Divider from '../../components/Divider.astro';
+import { getCollection } from 'astro:content';
+
+const allNotes = await getCollection('notes', ({ data }) => !data.draft);
+const notes = allNotes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const categories = ['all', 'book', 'movie', 'article', 'video'] as const;
+---
+
+<PageLayout title="Notes — Finn Stäblein" description="Notes on books, movies, and articles.">
+  <div class="notes-page">
+    <div class="notes-header">
+      <h1>Notes</h1>
+      <p class="notes-subtitle">On things I've read, watched, and found interesting.</p>
+    </div>
+
+    <Divider spacing="md" />
+
+    <div class="notes-controls">
+      <div class="filter-buttons" role="group" aria-label="Filter by category">
+        {categories.map(cat => (
+          <button
+            class:list={['filter-btn', { active: cat === 'all' }]}
+            data-filter={cat}
+          >
+            {cat === 'all' ? 'All' : cat.charAt(0).toUpperCase() + cat.slice(1) + 's'}
+          </button>
+        ))}
+      </div>
+
+      <div class="search-wrapper">
+        <input
+          type="search"
+          class="search-input"
+          placeholder="Search..."
+          aria-label="Search notes"
+          id="notes-search"
+        />
+      </div>
+    </div>
+
+    <div class="notes-count">
+      <span class="label" id="notes-count">{notes.length} notes</span>
+    </div>
+
+    <div class="notes-list" id="notes-list">
+      {notes.map(note => (
+        <NoteCard
+          id={note.id}
+          title={note.data.title}
+          category={note.data.category}
+          rating={note.data.rating}
+          creator={note.data.creator}
+          date={note.data.date}
+          summary={note.data.summary}
+          tags={note.data.tags}
+        />
+      ))}
+    </div>
+
+    <p class="no-results" id="no-results" style="display: none;">
+      No notes found.
+    </p>
+  </div>
+</PageLayout>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+    const searchInput = document.getElementById('notes-search') as HTMLInputElement | null;
+    const notesList = document.getElementById('notes-list');
+    const countEl = document.getElementById('notes-count');
+    const noResults = document.getElementById('no-results');
+
+    if (!notesList || !searchInput) return;
+
+    const cards = notesList.querySelectorAll<HTMLAnchorElement>('.note-card');
+    let activeCategory = 'all';
+
+    function filterNotes() {
+      const query = searchInput!.value.toLowerCase().trim();
+      let visible = 0;
+
+      cards.forEach(card => {
+        const category = card.dataset.category || '';
+        const title = card.dataset.title || '';
+        const creator = card.dataset.creator || '';
+        const tags = card.dataset.tags || '';
+
+        const matchesCategory = activeCategory === 'all' || category === activeCategory;
+        const matchesSearch = !query ||
+          title.includes(query) ||
+          creator.includes(query) ||
+          tags.includes(query);
+
+        const show = matchesCategory && matchesSearch;
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+
+      if (countEl) countEl.textContent = `${visible} note${visible !== 1 ? 's' : ''}`;
+      if (noResults) noResults.style.display = visible === 0 ? '' : 'none';
+    }
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeCategory = btn.dataset.filter || 'all';
+        filterNotes();
+      });
+    });
+
+    let debounceTimer: ReturnType<typeof setTimeout>;
+    searchInput.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(filterNotes, 150);
+    });
+  });
+</script>
+
+<style>
+  .notes-page {
+    max-width: var(--content-width);
+  }
+
+  .notes-header h1 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-2);
+  }
+
+  .notes-subtitle {
+    color: var(--color-text-secondary);
+    font-size: var(--text-base);
+  }
+
+  .notes-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .filter-buttons {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .filter-btn {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: var(--space-2) var(--space-3);
+    color: var(--color-text-secondary);
+    border: 0.5px solid var(--color-border);
+    transition:
+      color var(--duration-fast) ease,
+      background var(--duration-fast) ease,
+      border-color var(--duration-fast) ease;
+  }
+
+  .filter-btn:hover {
+    color: var(--color-text);
+    border-color: var(--color-text-secondary);
+  }
+
+  .filter-btn.active {
+    color: #fff;
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .search-wrapper {
+    flex: 0 1 240px;
+  }
+
+  .search-input {
+    width: 100%;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.02em;
+    padding: var(--space-2) var(--space-3);
+    border: 0.5px solid var(--color-border);
+    background: transparent;
+    color: var(--color-text);
+    transition: border-color var(--duration-fast) ease;
+  }
+
+  .search-input::placeholder {
+    color: var(--color-text-secondary);
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  .notes-count {
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-2);
+  }
+
+  .notes-list {
+    border-top: 0.5px solid var(--color-border);
+  }
+
+  .no-results {
+    text-align: center;
+    color: var(--color-text-secondary);
+    padding: var(--space-16) 0;
+  }
+</style>

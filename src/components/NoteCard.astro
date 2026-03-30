@@ -1,0 +1,112 @@
+---
+import RatingDisplay from './RatingDisplay.astro';
+
+interface Props {
+  id: string;
+  title: string;
+  category: string;
+  rating?: number;
+  creator: string;
+  date: Date;
+  summary?: string;
+  tags?: string[];
+}
+
+const { id, title, category, rating, creator, date, summary, tags = [] } = Astro.props;
+
+const dateStr = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+});
+---
+
+<a
+  href={`/notes/${id}`}
+  class="note-card"
+  data-category={category}
+  data-title={title.toLowerCase()}
+  data-creator={creator.toLowerCase()}
+  data-tags={tags.join(',').toLowerCase()}
+>
+  <div class="note-meta">
+    <span class="note-category label">{category}</span>
+    <span class="note-date">{dateStr}</span>
+  </div>
+  <h3 class="note-title">{title}</h3>
+  <p class="note-creator">{creator}</p>
+  {summary && <p class="note-summary">{summary}</p>}
+  {rating != null && (
+    <div class="note-footer">
+      <RatingDisplay rating={rating} />
+      <span class="note-rating-num mono">{rating}/10</span>
+    </div>
+  )}
+</a>
+
+<style>
+  .note-card {
+    display: block;
+    padding: var(--space-6);
+    border-bottom: 0.5px solid var(--color-border);
+    transition:
+      background var(--duration-base) var(--ease-out),
+      transform var(--duration-base) var(--ease-out);
+  }
+
+  .note-card:hover {
+    background: var(--color-surface);
+  }
+
+  .note-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-2);
+  }
+
+  .note-category {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .note-date {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+  }
+
+  .note-title {
+    font-size: var(--text-lg);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    margin-bottom: var(--space-1);
+  }
+
+  .note-creator {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-3);
+  }
+
+  .note-summary {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin-bottom: var(--space-3);
+  }
+
+  .note-footer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .note-rating-num {
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+  }
+</style>

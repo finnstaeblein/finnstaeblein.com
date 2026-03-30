@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ClientRouter } from 'astro:transitions';
+---
+
+<BaseLayout title="Finn Stäblein">
+  <main class="home">
+    <div class="home-content">
+      <h1 class="home-name" transition:name="site-name">Finn Stäblein</h1>
+      <nav class="home-nav">
+        <a href="/about" class="home-link">About</a>
+        <a href="/notes" class="home-link">Notes</a>
+        <a href="/projects" class="home-link">Projects</a>
+      </nav>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: var(--space-6);
+  }
+
+  .home-content {
+    text-align: left;
+  }
+
+  .home-name {
+    font-size: clamp(2.5rem, 8vw, var(--text-4xl));
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: var(--space-8);
+  }
+
+  .home-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .home-link {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    transition:
+      color var(--duration-base) var(--ease-out),
+      filter var(--duration-base) var(--ease-out),
+      opacity var(--duration-base) var(--ease-out);
+  }
+
+  .home-nav:hover .home-link {
+    filter: blur(2px);
+    opacity: 0.3;
+  }
+
+  .home-nav:hover .home-link:hover {
+    filter: blur(0);
+    opacity: 1;
+    color: var(--color-text);
+  }
+</style>
