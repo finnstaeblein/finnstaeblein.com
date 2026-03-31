@@ -5,8 +5,9 @@ const notes = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/notes' }),
   schema: z.object({
     title: z.string(),
-    category: z.enum(['book', 'movie', 'article', 'video']),
-    rating: z.number().min(1).max(10).optional(),
+    category: z.enum(['book', 'movie', 'article', 'video', 'paper']),
+    quality: z.number().min(1).max(10).optional(),
+    significance: z.number().min(1).max(10).optional(),
     creator: z.string(),
     date: z.coerce.date(),
     tags: z.array(z.string()).default([]),

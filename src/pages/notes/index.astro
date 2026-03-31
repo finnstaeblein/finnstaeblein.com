@@ -5,9 +5,11 @@ import Divider from '../../components/Divider.astro';
 import { getCollection } from 'astro:content';
 
 const allNotes = await getCollection('notes', ({ data }) => !data.draft);
-const notes = allNotes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const notes = allNotes.sort((a, b) =>
+  ((b.data.quality ?? 0) + (b.data.significance ?? 0)) - ((a.data.quality ?? 0) + (a.data.significance ?? 0))
+);
 
-const categories = ['all', 'book', 'movie', 'article', 'video'] as const;
+const categories = ['book', 'movie', 'article', 'video', 'paper'] as const;
 ---
 
 <PageLayout title="Notes — Finn Stäblein" description="Notes on books, movies, and articles.">
@@ -23,10 +25,10 @@ const categories = ['all', 'book', 'movie', 'article', 'video'] as const;
       <div class="filter-buttons" role="group" aria-label="Filter by category">
         {categories.map(cat => (
           <button
-            class:list={['filter-btn', { active: cat === 'all' }]}
+            class="filter-btn"
             data-filter={cat}
           >
-            {cat === 'all' ? 'All' : cat.charAt(0).toUpperCase() + cat.slice(1) + 's'}
+            {cat.charAt(0).toUpperCase() + cat.slice(1) + 's'}
           </button>
         ))}
       </div>
@@ -52,7 +54,8 @@ const categories = ['all', 'book', 'movie', 'article', 'video'] as const;
           id={note.id}
           title={note.data.title}
           category={note.data.category}
-          rating={note.data.rating}
+          quality={note.data.quality}
+          significance={note.data.significance}
           creator={note.data.creator}
           date={note.data.date}
           summary={note.data.summary}
@@ -78,7 +81,7 @@ const categories = ['all', 'book', 'movie', 'article', 'video'] as const;
     if (!notesList || !searchInput) return;
 
     const cards = notesList.querySelectorAll<HTMLAnchorElement>('.note-card');
-    let activeCategory = 'all';
+    let activeCategory: string | null = null;
 
     function filterNotes() {
       const query = searchInput!.value.toLowerCase().trim();
@@ -90,7 +93,7 @@ const categories = ['all', 'book', 'movie', 'article', 'video'] as const;
         const creator = card.dataset.creator || '';
         const tags = card.dataset.tags || '';
 
-        const matchesCategory = activeCategory === 'all' || category === activeCategory;
+        const matchesCategory = !activeCategory || category === activeCategory;
         const matchesSearch = !query ||
           title.includes(query) ||
           creator.includes(query) ||
@@ -107,9 +110,15 @@ const categories = ['all', 'book', 'movie', 'article', 'video'] as const;
 
     filterButtons.forEach(btn => {
       btn.addEventListener('click', () => {
-        filterButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        activeCategory = btn.dataset.filter || 'all';
+        const filter = btn.dataset.filter || '';
+        if (activeCategory === filter) {
+          activeCategory = null;
+          btn.classList.remove('active');
+        } else {
+          filterButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeCategory = filter;
+        }
         filterNotes();
       });
     });

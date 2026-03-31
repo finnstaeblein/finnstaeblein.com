@@ -34,10 +34,18 @@ const dateStr = note.data.date.toLocaleDateString('en-US', {
       <p class="note-creator">{note.data.creator}</p>
 
       <div class="note-meta">
-        {note.data.rating != null && (
+        {note.data.quality != null && (
           <div class="note-rating">
-            <RatingDisplay rating={note.data.rating} />
-            <span class="mono rating-num">{note.data.rating}/10</span>
+            <span class="label">quality</span>
+            <RatingDisplay rating={note.data.quality} />
+            <span class="mono rating-num">{note.data.quality}/10</span>
+          </div>
+        )}
+        {note.data.significance != null && (
+          <div class="note-rating">
+            <span class="label">significance</span>
+            <RatingDisplay rating={note.data.significance} />
+            <span class="mono rating-num">{note.data.significance}/10</span>
           </div>
         )}
         <time class="note-date mono" datetime={note.data.date.toISOString()}>

@@ -5,14 +5,15 @@ interface Props {
   id: string;
   title: string;
   category: string;
-  rating?: number;
+  quality?: number;
+  significance?: number;
   creator: string;
   date: Date;
   summary?: string;
   tags?: string[];
 }
 
-const { id, title, category, rating, creator, date, summary, tags = [] } = Astro.props;
+const { id, title, category, quality, significance, creator, date, summary, tags = [] } = Astro.props;
 
 const dateStr = date.toLocaleDateString('en-US', {
   year: 'numeric',
@@ -35,10 +36,22 @@ const dateStr = date.toLocaleDateString('en-US', {
   <h3 class="note-title">{title}</h3>
   <p class="note-creator">{creator}</p>
   {summary && <p class="note-summary">{summary}</p>}
-  {rating != null && (
+  {(quality != null || significance != null) && (
     <div class="note-footer">
-      <RatingDisplay rating={rating} />
-      <span class="note-rating-num mono">{rating}/10</span>
+      {quality != null && (
+        <div class="note-score">
+          <span class="score-label label">quality</span>
+          <RatingDisplay rating={quality} />
+          <span class="note-rating-num mono">{quality}/10</span>
+        </div>
+      )}
+      {significance != null && (
+        <div class="note-score">
+          <span class="score-label label">significance</span>
+          <RatingDisplay rating={significance} />
+          <span class="note-rating-num mono">{significance}/10</span>
+        </div>
+      )}
     </div>
   )}
 </a>
@@ -102,7 +115,18 @@ const dateStr = date.toLocaleDateString('en-US', {
   .note-footer {
     display: flex;
     align-items: center;
+    gap: var(--space-6);
+  }
+
+  .note-score {
+    display: flex;
+    align-items: center;
     gap: var(--space-2);
+  }
+
+  .score-label {
+    font-size: 0.6rem;
+    margin-right: var(--space-1);
   }
 
   .note-rating-num {
