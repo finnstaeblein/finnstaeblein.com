@@ -1,6 +1,5 @@
 ---
 // Split-pane layout: sticky left column, scrolling right column
-// Inspired by helioteles.com
 ---
 
 <div class="split-pane">
@@ -16,21 +15,20 @@
   .split-pane {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-12);
-    min-height: calc(100vh - 200px);
+    gap: var(--space-8);
+    min-height: calc(100vh - 120px);
   }
 
   .split-left {
     position: sticky;
-    top: calc(57px + var(--space-12));
+    top: calc(49px + var(--space-8));
     align-self: start;
-    padding-right: var(--space-8);
   }
 
   .split-right {
     display: flex;
     flex-direction: column;
-    gap: var(--space-6);
+    gap: var(--space-4);
   }
 
   @media (max-width: 768px) {
@@ -41,7 +39,6 @@
 
     .split-left {
       position: static;
-      padding-right: 0;
     }
   }
 </style>

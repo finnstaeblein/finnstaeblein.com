@@ -1,6 +1,5 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
-import RatingDisplay from '../../components/RatingDisplay.astro';
 import Divider from '../../components/Divider.astro';
 import { getCollection, render } from 'astro:content';
 
@@ -24,51 +23,50 @@ const dateStr = note.data.date.toLocaleDateString('en-US', {
 
 <PageLayout title={`${note.data.title} — Finn Stäblein`}>
   <article class="note-detail">
-    <div class="note-back">
-      <a href="/notes" class="back-link">&larr; All notes</a>
-    </div>
+    <a href="/notes" class="back-link">&larr; Index</a>
 
     <header class="note-header">
-      <span class="label">{note.data.category}</span>
-      <h1>{note.data.title}</h1>
-      <p class="note-creator">{note.data.creator}</p>
-
-      <div class="note-meta">
+      <div class="meta-block">
+        <div class="meta-row">
+          <span class="meta-label mono">Type</span>
+          <span>{note.data.category}</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label mono">Creator</span>
+          <span>{note.data.creator}</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label mono">Date</span>
+          <time datetime={note.data.date.toISOString()}>{dateStr}</time>
+        </div>
         {note.data.quality != null && (
-          <div class="note-rating">
-            <span class="label">quality</span>
-            <RatingDisplay rating={note.data.quality} />
-            <span class="mono rating-num">{note.data.quality}/10</span>
+          <div class="meta-row">
+            <span class="meta-label mono">Quality</span>
+            <span>{note.data.quality}/10</span>
           </div>
         )}
         {note.data.significance != null && (
-          <div class="note-rating">
-            <span class="label">significance</span>
-            <RatingDisplay rating={note.data.significance} />
-            <span class="mono rating-num">{note.data.significance}/10</span>
+          <div class="meta-row">
+            <span class="meta-label mono">Significance</span>
+            <span>{note.data.significance}/10</span>
           </div>
         )}
-        <time class="note-date mono" datetime={note.data.date.toISOString()}>
-          {dateStr}
-        </time>
+        {note.data.tags.length > 0 && (
+          <div class="meta-row">
+            <span class="meta-label mono">Tags</span>
+            <span>{note.data.tags.join(', ')}</span>
+          </div>
+        )}
+        {note.data.url && (
+          <div class="meta-row">
+            <span class="meta-label mono">Source</span>
+            <a href={note.data.url} target="_blank" rel="noopener noreferrer" class="source-link">{note.data.url}</a>
+          </div>
+        )}
       </div>
 
-      {note.data.tags.length > 0 && (
-        <div class="note-tags">
-          {note.data.tags.map(tag => (
-            <span class="tag">{tag}</span>
-          ))}
-        </div>
-      )}
-
-      {note.data.url && (
-        <a href={note.data.url} class="note-link mono" target="_blank" rel="noopener noreferrer">
-          Source &nearr;
-        </a>
-      )}
+      <h1>{note.data.title}</h1>
     </header>
-
-    <Divider spacing="md" />
 
     <div class="prose">
       <Content />
@@ -82,9 +80,7 @@ const dateStr = note.data.date.toLocaleDateString('en-US', {
   }
 
   .back-link {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    letter-spacing: 0.04em;
+    font-size: var(--text-sm);
     color: var(--color-text-secondary);
     transition: color var(--duration-fast) ease;
   }
@@ -95,68 +91,51 @@ const dateStr = note.data.date.toLocaleDateString('en-US', {
 
   .note-header {
     margin-top: var(--space-8);
+    margin-bottom: var(--space-8);
   }
 
-  .note-header .label {
-    margin-bottom: var(--space-3);
-    display: block;
+  .meta-block {
+    border: 1px solid var(--color-border);
+    padding: var(--space-4);
+    margin-bottom: var(--space-6);
+    font-size: var(--text-sm);
+  }
+
+  .meta-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: var(--space-4);
+    padding: var(--space-1) 0;
+    border-bottom: 1px solid var(--color-bg);
+  }
+
+  .meta-row:last-child {
+    border-bottom: none;
+  }
+
+  .meta-label {
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--color-text-secondary);
+    align-self: baseline;
+  }
+
+  .source-link {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .source-link:hover {
     color: var(--color-accent);
   }
 
   .note-header h1 {
-    font-size: var(--text-3xl);
-    margin-bottom: var(--space-2);
-  }
-
-  .note-creator {
-    font-size: var(--text-lg);
-    color: var(--color-text-secondary);
-    margin-bottom: var(--space-4);
-  }
-
-  .note-meta {
-    display: flex;
-    align-items: center;
-    gap: var(--space-6);
-    margin-bottom: var(--space-3);
-  }
-
-  .note-rating {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-  }
-
-  .rating-num {
-    font-size: var(--text-sm);
-    color: var(--color-text-secondary);
-  }
-
-  .note-date {
-    font-size: var(--text-xs);
-    color: var(--color-text-secondary);
-  }
-
-  .note-tags {
-    display: flex;
-    gap: var(--space-2);
-    flex-wrap: wrap;
-    margin-bottom: var(--space-3);
-  }
-
-  .tag {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    letter-spacing: 0.04em;
-    padding: var(--space-1) var(--space-2);
-    border: 0.5px solid var(--color-border);
-    color: var(--color-text-secondary);
-  }
-
-  .note-link {
-    font-size: var(--text-xs);
-    color: var(--color-accent);
-    text-decoration: underline;
-    text-underline-offset: 2px;
+    font-size: var(--text-2xl);
+    font-weight: 400;
   }
 </style>

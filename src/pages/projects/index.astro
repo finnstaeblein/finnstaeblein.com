@@ -1,7 +1,6 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
-import Divider from '../../components/Divider.astro';
 import { getCollection } from 'astro:content';
 
 const allProjects = await getCollection('projects', ({ data }) => !data.draft);
@@ -10,23 +9,24 @@ const projects = allProjects.sort((a, b) => a.data.order - b.data.order);
 
 <PageLayout title="Projects — Finn Stäblein" description="Things I've worked on.">
   <div class="projects-page">
-    <div class="projects-header">
-      <h1>Projects</h1>
-      <p class="projects-subtitle">Things I've built and worked on.</p>
-    </div>
+    <h1>Projects</h1>
 
-    <Divider spacing="md" />
+    <div class="projects-table">
+      <div class="table-header">
+        <span class="col-index mono">No.</span>
+        <span class="col-title">Title</span>
+        <span class="col-desc">Description</span>
+        <span class="col-year mono">Year</span>
+      </div>
 
-    <div class="projects-list">
-      {projects.map(project => (
+      {projects.map((project, i) => (
         <ProjectCard
           id={project.id}
+          index={i + 1}
           title={project.data.title}
           description={project.data.description}
           date={project.data.date}
           stack={project.data.stack}
-          repo={project.data.repo}
-          link={project.data.link}
         />
       ))}
     </div>
@@ -35,19 +35,42 @@ const projects = allProjects.sort((a, b) => a.data.order - b.data.order);
 
 <style>
   .projects-page {
-    max-width: var(--content-width);
+    max-width: var(--max-width);
   }
 
-  .projects-header h1 {
-    font-size: var(--text-3xl);
-    margin-bottom: var(--space-2);
+  .projects-page h1 {
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    margin-bottom: var(--space-6);
   }
 
-  .projects-subtitle {
+  .projects-table {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .table-header {
+    display: grid;
+    grid-template-columns: 36px 200px 1fr 60px;
+    gap: var(--space-4);
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
     color: var(--color-text-secondary);
   }
 
-  .projects-list {
-    border-top: 0.5px solid var(--color-border);
+  .table-header .col-year {
+    text-align: right;
+  }
+
+  @media (max-width: 640px) {
+    .table-header {
+      grid-template-columns: 36px 1fr 48px;
+    }
+    .table-header .col-desc {
+      display: none;
+    }
   }
 </style>

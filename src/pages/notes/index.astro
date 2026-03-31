@@ -1,7 +1,6 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import NoteCard from '../../components/NoteCard.astro';
-import Divider from '../../components/Divider.astro';
 import { getCollection } from 'astro:content';
 
 const allNotes = await getCollection('notes', ({ data }) => !data.draft);
@@ -12,16 +11,13 @@ const notes = allNotes.sort((a, b) =>
 const categories = ['book', 'movie', 'article', 'video', 'paper'] as const;
 ---
 
-<PageLayout title="Notes — Finn Stäblein" description="Notes on books, movies, and articles.">
-  <div class="notes-page">
-    <div class="notes-header">
-      <h1>Notes</h1>
-      <p class="notes-subtitle">On things I've read, watched, and found interesting.</p>
+<PageLayout title="Index — Finn Stäblein" description="Notes on books, movies, and articles.">
+  <div class="index-page">
+    <div class="index-header">
+      <h1>Index</h1>
     </div>
 
-    <Divider spacing="md" />
-
-    <div class="notes-controls">
+    <div class="index-controls">
       <div class="filter-buttons" role="group" aria-label="Filter by category">
         {categories.map(cat => (
           <button
@@ -33,39 +29,46 @@ const categories = ['book', 'movie', 'article', 'video', 'paper'] as const;
         ))}
       </div>
 
-      <div class="search-wrapper">
-        <input
-          type="search"
-          class="search-input"
-          placeholder="Search..."
-          aria-label="Search notes"
-          id="notes-search"
-        />
+      <input
+        type="search"
+        class="search-input"
+        placeholder="Search"
+        aria-label="Search notes"
+        id="notes-search"
+      />
+    </div>
+
+    <div class="index-count">
+      <span class="mono" id="notes-count">{notes.length} entries</span>
+    </div>
+
+    <div class="index-table">
+      <div class="table-header">
+        <span class="col-index mono">No.</span>
+        <span class="col-title">Title</span>
+        <span class="col-creator">Creator</span>
+        <span class="col-type mono">Type</span>
+        <span class="col-score mono">Q</span>
+        <span class="col-score mono">S</span>
+      </div>
+
+      <div id="notes-list">
+        {notes.map((note, i) => (
+          <NoteCard
+            id={note.id}
+            index={i + 1}
+            title={note.data.title}
+            category={note.data.category}
+            quality={note.data.quality}
+            significance={note.data.significance}
+            creator={note.data.creator}
+          />
+        ))}
       </div>
     </div>
 
-    <div class="notes-count">
-      <span class="label" id="notes-count">{notes.length} notes</span>
-    </div>
-
-    <div class="notes-list" id="notes-list">
-      {notes.map(note => (
-        <NoteCard
-          id={note.id}
-          title={note.data.title}
-          category={note.data.category}
-          quality={note.data.quality}
-          significance={note.data.significance}
-          creator={note.data.creator}
-          date={note.data.date}
-          summary={note.data.summary}
-          tags={note.data.tags}
-        />
-      ))}
-    </div>
-
     <p class="no-results" id="no-results" style="display: none;">
-      No notes found.
+      No entries found.
     </p>
   </div>
 </PageLayout>
@@ -80,7 +83,7 @@ const categories = ['book', 'movie', 'article', 'video', 'paper'] as const;
 
     if (!notesList || !searchInput) return;
 
-    const cards = notesList.querySelectorAll<HTMLAnchorElement>('.note-card');
+    const cards = notesList.querySelectorAll<HTMLAnchorElement>('.note-row');
     let activeCategory: string | null = null;
 
     function filterNotes() {
@@ -91,20 +94,18 @@ const categories = ['book', 'movie', 'article', 'video', 'paper'] as const;
         const category = card.dataset.category || '';
         const title = card.dataset.title || '';
         const creator = card.dataset.creator || '';
-        const tags = card.dataset.tags || '';
 
         const matchesCategory = !activeCategory || category === activeCategory;
         const matchesSearch = !query ||
           title.includes(query) ||
-          creator.includes(query) ||
-          tags.includes(query);
+          creator.includes(query);
 
         const show = matchesCategory && matchesSearch;
         card.style.display = show ? '' : 'none';
         if (show) visible++;
       });
 
-      if (countEl) countEl.textContent = `${visible} note${visible !== 1 ? 's' : ''}`;
+      if (countEl) countEl.textContent = `${visible} entr${visible !== 1 ? 'ies' : 'y'}`;
       if (noResults) noResults.style.display = visible === 0 ? '' : 'none';
     }
 
@@ -132,72 +133,50 @@ const categories = ['book', 'movie', 'article', 'video', 'paper'] as const;
 </script>
 
 <style>
-  .notes-page {
-    max-width: var(--content-width);
+  .index-page {
+    max-width: var(--max-width);
   }
 
-  .notes-header h1 {
-    font-size: var(--text-3xl);
-    margin-bottom: var(--space-2);
+  .index-header h1 {
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    margin-bottom: var(--space-6);
   }
 
-  .notes-subtitle {
-    color: var(--color-text-secondary);
-    font-size: var(--text-base);
-  }
-
-  .notes-controls {
+  .index-controls {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: var(--space-4);
     flex-wrap: wrap;
+    margin-bottom: var(--space-4);
   }
 
   .filter-buttons {
     display: flex;
-    gap: var(--space-2);
+    gap: var(--space-4);
   }
 
   .filter-btn {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-sm);
     color: var(--color-text-secondary);
-    border: 0.5px solid var(--color-border);
-    transition:
-      color var(--duration-fast) ease,
-      background var(--duration-fast) ease,
-      border-color var(--duration-fast) ease;
+    padding: 0;
+    transition: color var(--duration-fast) ease;
   }
 
   .filter-btn:hover {
     color: var(--color-text);
-    border-color: var(--color-text-secondary);
   }
 
   .filter-btn.active {
-    color: #fff;
-    background: var(--color-accent);
-    border-color: var(--color-accent);
-  }
-
-  .search-wrapper {
-    flex: 0 1 240px;
+    color: var(--color-accent);
   }
 
   .search-input {
-    width: 100%;
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    letter-spacing: 0.02em;
+    font-size: var(--text-sm);
     padding: var(--space-2) var(--space-3);
-    border: 0.5px solid var(--color-border);
-    background: transparent;
-    color: var(--color-text);
-    transition: border-color var(--duration-fast) ease;
+    border: 1px solid var(--color-border);
+    width: 200px;
   }
 
   .search-input::placeholder {
@@ -209,18 +188,46 @@ const categories = ['book', 'movie', 'article', 'video', 'paper'] as const;
     border-color: var(--color-accent);
   }
 
-  .notes-count {
-    margin-top: var(--space-4);
-    margin-bottom: var(--space-2);
+  .index-count {
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-4);
   }
 
-  .notes-list {
-    border-top: 0.5px solid var(--color-border);
+  .index-table {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .table-header {
+    display: grid;
+    grid-template-columns: 48px 1fr 1fr 80px 40px 40px;
+    gap: var(--space-4);
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--color-text-secondary);
+  }
+
+  .table-header .col-score {
+    text-align: right;
   }
 
   .no-results {
     text-align: center;
     color: var(--color-text-secondary);
     padding: var(--space-16) 0;
+    font-size: var(--text-sm);
+  }
+
+  @media (max-width: 640px) {
+    .table-header {
+      grid-template-columns: 36px 1fr 48px 28px 28px;
+    }
+    .table-header .col-creator {
+      display: none;
+    }
   }
 </style>

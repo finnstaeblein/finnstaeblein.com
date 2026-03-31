@@ -43,7 +43,6 @@ import SplitPane from '../components/SplitPane.astro';
     </div>
 
     <div slot="right" class="about-images">
-      <!-- Replace these with your actual photos -->
       <div class="image-placeholder fade-in">
         <span class="mono">photo 1</span>
       </div>
@@ -63,7 +62,7 @@ import SplitPane from '../components/SplitPane.astro';
   }
 
   .section-label {
-    margin-bottom: var(--space-6);
+    margin-bottom: var(--space-4);
     margin-top: var(--space-12);
   }
 
@@ -72,9 +71,9 @@ import SplitPane from '../components/SplitPane.astro';
   }
 
   .about-text p {
-    color: var(--color-text-secondary);
-    line-height: 1.7;
-    margin-bottom: var(--space-4);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    margin-bottom: var(--space-3);
   }
 
   .about-contact {
@@ -82,37 +81,30 @@ import SplitPane from '../components/SplitPane.astro';
   }
 
   .contact-link {
-    color: var(--color-accent);
+    color: var(--color-text);
     text-decoration: underline;
     text-underline-offset: 2px;
     transition: color var(--duration-fast) ease;
   }
 
   .contact-link:hover {
-    color: var(--color-accent-hover);
+    color: var(--color-accent);
   }
 
   .about-images {
     display: flex;
     flex-direction: column;
-    gap: var(--space-6);
+    gap: var(--space-4);
   }
 
   .image-placeholder {
     aspect-ratio: 4/3;
-    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--color-text-secondary);
-    font-size: var(--text-sm);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
   }
-
-  /* When you add real images, use:
-  .about-images img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-  */
 </style>

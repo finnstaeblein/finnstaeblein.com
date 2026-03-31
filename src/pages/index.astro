@@ -1,15 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { ClientRouter } from 'astro:transitions';
 ---
 
 <BaseLayout title="Finn Stäblein">
   <main class="home">
     <div class="home-content">
-      <h1 class="home-name" transition:name="site-name">Finn Stäblein</h1>
+      <h1 class="home-name" transition:name="site-name">Finn<br />Stäblein</h1>
       <nav class="home-nav">
         <a href="/about" class="home-link">About</a>
-        <a href="/notes" class="home-link">Notes</a>
+        <a href="/notes" class="home-link">Index</a>
         <a href="/projects" class="home-link">Projects</a>
       </nav>
     </div>
@@ -18,36 +17,32 @@ import { ClientRouter } from 'astro:transitions';
 
 <style>
   .home {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     min-height: 100vh;
-    padding: var(--space-6);
+    padding: var(--space-8) var(--space-6);
+    display: flex;
+    align-items: flex-start;
   }
 
   .home-content {
-    text-align: left;
+    padding-top: 20vh;
   }
 
   .home-name {
-    font-size: clamp(2.5rem, 8vw, var(--text-4xl));
-    font-weight: 500;
-    letter-spacing: -0.04em;
-    line-height: 1;
+    font-size: clamp(2.5rem, 10vw, var(--text-4xl));
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
     margin-bottom: var(--space-8);
   }
 
   .home-nav {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
+    gap: var(--space-2);
   }
 
   .home-link {
-    font-family: var(--font-mono);
     font-size: var(--text-sm);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
     color: var(--color-text-secondary);
     transition:
       color var(--duration-base) var(--ease-out),
