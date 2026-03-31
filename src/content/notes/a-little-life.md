@@ -1,9 +1,12 @@
 ---
-title: "A Little Life"
+title: A Little Life
 category: book
-quality: 9
+quality: 10
 significance: 8
-creator: "Hanya Yanagihara"
+creator: Hanya Yanagihara
 date: 2025-01-01
-tags: [fiction, literary]
+tags:
+  - fiction
+  - literary
 ---
+\-
