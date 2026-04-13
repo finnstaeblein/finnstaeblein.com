@@ -1,0 +1,47 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+const entries = await getCollection('thoughts');
+const { Content } = await render(entries[0]);
+---
+
+<PageLayout title="Thoughts — Finn Stäblein" description="Random thoughts.">
+  <article class="thoughts-page">
+    <a href="/notes" class="back-link">&larr; Index</a>
+
+    <header class="thoughts-header">
+      <h1>Thoughts</h1>
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</PageLayout>
+
+<style>
+  .thoughts-page {
+    max-width: var(--content-width);
+  }
+
+  .back-link {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    transition: color var(--duration-fast) ease;
+  }
+
+  .back-link:hover {
+    color: var(--color-text);
+  }
+
+  .thoughts-header {
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-8);
+  }
+
+  .thoughts-header h1 {
+    font-size: var(--text-2xl);
+    font-weight: 400;
+  }
+</style>

@@ -27,6 +27,7 @@ const categories = ['book', 'movie', 'article', 'video', 'paper'] as const;
             {cat.charAt(0).toUpperCase() + cat.slice(1) + 's'}
           </button>
         ))}
+        <a href="/thoughts" class="filter-btn thoughts-link">Thoughts</a>
       </div>
 
       <input
@@ -170,6 +171,11 @@ const categories = ['book', 'movie', 'article', 'video', 'paper'] as const;
 
   .filter-btn.active {
     color: var(--color-accent);
+  }
+
+  .thoughts-link {
+    border-left: 1px solid var(--color-border);
+    padding-left: var(--space-4);
   }
 
   .search-input {

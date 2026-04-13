@@ -24,6 +24,15 @@ collections:
       - { label: "Draft", name: "draft", widget: "boolean", default: false, required: false }
       - { label: "Body", name: "body", widget: "markdown" }
 
+  - name: "thoughts"
+    label: "Thoughts"
+    files:
+      - label: "Thoughts"
+        name: "thoughts"
+        file: "src/content/thoughts.md"
+        fields:
+          - { label: "Body", name: "body", widget: "markdown" }
+
   - name: "projects"
     label: "Projects"
     folder: "src/content/projects"

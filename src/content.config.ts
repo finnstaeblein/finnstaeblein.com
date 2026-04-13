@@ -35,4 +35,9 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { notes, projects };
+const thoughts = defineCollection({
+  loader: glob({ pattern: 'thoughts.md', base: './src/content' }),
+  schema: z.object({}),
+});
+
+export const collections = { notes, projects, thoughts };
