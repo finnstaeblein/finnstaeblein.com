@@ -16,8 +16,6 @@ the main point is that leading models might become proprietary in the near to me
 
 if cost was the only problem, labs could just raise API prices, to those willing to pay it. However, it seems that this is also about gatekeeping: if the labs are the only ones to access the frontier models, they are in the best position to tackle the arguably biggest market - scientific discoveries More specifically, new molecules or drugs. Each successful hit means up to dozen of billion in revenue.
 
-but are the labs willing to forgo the short-term API revenue? (assuming they would raise prices for full vs distilled version of their frontier models)
-
 how will the revenue-model look like
 
 * will the lab do it themselves (Isomorphic labs spun out of DeepMind is a good example)?
