@@ -16,7 +16,7 @@ collections:
       - { label: "Category", name: "category", widget: "select", options: ["book", "movie", "article", "video", "paper"] }
       - { label: "Quality", name: "quality", widget: "number", value_type: "int", min: 1, max: 10, required: false, hint: "How good is this?" }
       - { label: "Significance", name: "significance", widget: "number", value_type: "int", min: 1, max: 10, required: false, hint: "How much did it matter to me?" }
-      - { label: "Creator", name: "creator", widget: "string", hint: "Author, director, or creator" }
+      - { label: "Author", name: "creator", widget: "string", hint: "Author, director, or creator" }
       - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
       - { label: "Tags", name: "tags", widget: "list", required: false }
       - { label: "Summary", name: "summary", widget: "string", required: false }
