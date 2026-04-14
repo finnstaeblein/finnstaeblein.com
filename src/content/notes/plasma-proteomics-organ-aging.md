@@ -29,8 +29,6 @@ results
 * only 160 out of 44,498 people had both youthful brains and youthful immune systems
 * most noticeable example: an aged brain posed a 3x risk of Alzheimer's disease (even when controlled for aging in other organs), which is equal to the risk of carrying one copy of APOE4, the strongest genetic risk factor
 
-
-
 challenges
 
 * measurements have high variance per individual across the 3 samples over ~12 years. While measurements are highly predictive across individuals (where some noise matters less), the high variance is problematic for personal tracking bc you can't discern true biological change (e.g. after an intervention) from measurement noise
@@ -42,7 +40,7 @@ prior methods for determining organ age
 * MRI (volume of different brain regions)
 * DNA methylation (hard to interpret biological meaning)
 
-\--> in the study plasma brain aging and MRI brain aging are only weakly correlated (r=0.18) -> they seem to capture different aspects of brain aging
+in the study plasma brain aging and MRI brain aging are only weakly correlated (r=0.18) -> they seem to capture different aspects of brain aging
 
 definitions
 
