@@ -86,8 +86,8 @@ const categories = ['book', 'movie', 'article', 'video', 'paper'] as const;
 
     const cards = notesList.querySelectorAll<HTMLAnchorElement>('.note-row');
 
-    // Read filter from URL hash, default to 'book'
-    let activeCategory: string | null = location.hash.slice(1) || 'book';
+    // Read filter from sessionStorage, default to 'book'
+    let activeCategory: string | null = sessionStorage.getItem('notes-filter') || 'book';
 
     function setActiveButton() {
       filterButtons.forEach(b => {
@@ -124,11 +124,11 @@ const categories = ['book', 'movie', 'article', 'video', 'paper'] as const;
         const filter = btn.dataset.filter || '';
         if (activeCategory === filter) {
           activeCategory = null;
-          history.replaceState(null, '', location.pathname);
+          sessionStorage.removeItem('notes-filter');
           btn.classList.remove('active');
         } else {
           activeCategory = filter;
-          history.replaceState(null, '', `#${filter}`);
+          sessionStorage.setItem('notes-filter', filter);
           setActiveButton();
         }
         filterNotes();
