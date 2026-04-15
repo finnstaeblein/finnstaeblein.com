@@ -124,19 +124,19 @@ const categories = ['book', 'movie', 'article', 'video', 'paper'] as const;
         const filter = btn.dataset.filter || '';
         if (activeCategory === filter) {
           activeCategory = null;
-          history.replaceState(null, '', location.pathname);
+          history.pushState(null, '', location.pathname);
           btn.classList.remove('active');
         } else {
           activeCategory = filter;
-          history.replaceState(null, '', `#${filter}`);
+          history.pushState(null, '', `#${filter}`);
           setActiveButton();
         }
         filterNotes();
       });
     });
 
-    // Restore filter on back navigation
-    window.addEventListener('hashchange', () => {
+    // Restore filter on back/forward navigation
+    window.addEventListener('popstate', () => {
       activeCategory = location.hash.slice(1) || 'book';
       setActiveButton();
       filterNotes();
