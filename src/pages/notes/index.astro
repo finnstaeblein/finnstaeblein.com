@@ -124,22 +124,15 @@ const categories = ['book', 'movie', 'article', 'video', 'paper'] as const;
         const filter = btn.dataset.filter || '';
         if (activeCategory === filter) {
           activeCategory = null;
-          history.pushState(null, '', location.pathname);
+          history.replaceState(null, '', location.pathname);
           btn.classList.remove('active');
         } else {
           activeCategory = filter;
-          history.pushState(null, '', `#${filter}`);
+          history.replaceState(null, '', `#${filter}`);
           setActiveButton();
         }
         filterNotes();
       });
-    });
-
-    // Restore filter on back/forward navigation
-    window.addEventListener('popstate', () => {
-      activeCategory = location.hash.slice(1) || 'book';
-      setActiveButton();
-      filterNotes();
     });
 
     // Apply initial filter

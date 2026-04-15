@@ -23,7 +23,7 @@ const dateStr = note.data.date.toLocaleDateString('en-US', {
 
 <PageLayout title={`${note.data.title} — Finn Stäblein`}>
   <article class="note-detail">
-    <a href="/notes" class="back-link">&larr; Index</a>
+    <a href="/notes" class="back-link" id="back-link">&larr; Index</a>
 
     <header class="note-header">
       <div class="meta-block">
@@ -139,3 +139,17 @@ const dateStr = note.data.date.toLocaleDateString('en-US', {
     font-weight: 400;
   }
 </style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const link = document.getElementById('back-link');
+    if (!link) return;
+    link.addEventListener('click', (e) => {
+      // If we came from the notes index, go back to preserve filter state
+      if (document.referrer.includes('/notes')) {
+        e.preventDefault();
+        history.back();
+      }
+    });
+  });
+</script>
