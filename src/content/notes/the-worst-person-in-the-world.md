@@ -1,9 +1,12 @@
 ---
-title: "The Worst Person in the World"
+title: The Worst Person in the World
 category: movie
-quality: 6
-significance: 1
-creator: "Joachim Trier"
+quality: 2
+significance: ""
+creator: Joachim Trier
 date: 2025-01-01
-tags: [drama, romance]
+tags:
+  - drama
+  - romance
 ---
+felt pretty basic and boring. the averageness and aimlessness of the protagonists made me uneasy
