@@ -85,7 +85,16 @@ const categories = ['book', 'movie', 'article', 'video', 'paper'] as const;
     if (!notesList || !searchInput) return;
 
     const cards = notesList.querySelectorAll<HTMLAnchorElement>('.note-row');
-    let activeCategory: string | null = null;
+
+    // Read filter from URL hash, default to 'book'
+    let activeCategory: string | null = location.hash.slice(1) || 'book';
+
+    function setActiveButton() {
+      filterButtons.forEach(b => {
+        if (b.dataset.filter === activeCategory) b.classList.add('active');
+        else b.classList.remove('active');
+      });
+    }
 
     function filterNotes() {
       const query = searchInput!.value.toLowerCase().trim();
@@ -115,15 +124,27 @@ const categories = ['book', 'movie', 'article', 'video', 'paper'] as const;
         const filter = btn.dataset.filter || '';
         if (activeCategory === filter) {
           activeCategory = null;
+          history.replaceState(null, '', location.pathname);
           btn.classList.remove('active');
         } else {
-          filterButtons.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
           activeCategory = filter;
+          history.replaceState(null, '', `#${filter}`);
+          setActiveButton();
         }
         filterNotes();
       });
     });
+
+    // Restore filter on back navigation
+    window.addEventListener('hashchange', () => {
+      activeCategory = location.hash.slice(1) || 'book';
+      setActiveButton();
+      filterNotes();
+    });
+
+    // Apply initial filter
+    setActiveButton();
+    filterNotes();
 
     let debounceTimer: ReturnType<typeof setTimeout>;
     searchInput.addEventListener('input', () => {
