@@ -9,4 +9,4 @@ tags:
   - drama
   - romance
 ---
-felt pretty basic and boring. the averageness and aimlessness of the protagonists made me uneasy
+felt pretty basic and boring. the averageness and aimlessness of the protagonists made me uneasy.
