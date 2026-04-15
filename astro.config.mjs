@@ -1,10 +1,12 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import remarkBlankLines from './src/remark-blank-lines.mjs';
+import rehypeTightLists from './src/rehype-tight-lists.mjs';
+import blankLinesIntegration from './src/integration-blank-lines.mjs';
 
 export default defineConfig({
   site: 'https://finnstaeblein.com',
+  integrations: [blankLinesIntegration()],
   markdown: {
-    remarkPlugins: [remarkBlankLines],
+    rehypePlugins: [rehypeTightLists],
   },
 });
