@@ -27,12 +27,9 @@ Without taking risk, you can never achieve what you want in life.
 
 *In school:*
 
-
 Andreessen rants on how useless humanity degrees are. Actually, it's rather a declaration of how useful technical degrees are.
 After 4 years at Stanford I must say I wholeheartedly agree. It is saddening how little I have learned in the humanity classes I took here. It was around 40% of my course load and likely represents less than 5% of my learnings.
 The reason for this isn't that I believe the humanities and arts aren't valuable. That is ludicrous. 
-
-
 
 However, by now, I'm convinced that they can't be taught in a classroom setting.
 All my humanities courses consisted of someone rattling on about something they had spent the last 20 years studying and then researching. It consisted of anecdotes and case studies.
@@ -42,15 +39,14 @@ Reading *Call Me by Your Name* and *Giovanni's Room* shows you what great taste 
 
 *On skill development after school:*
 
-
 Become very good at two or more things bc that combination will make you invaluable.
 Some advice on the types of skills he advises you to become good at:
 
-1. Communicating: oral or written communication is the foundational skill for everything else (you just need to practice it)
-2. Management: this kind of gave me an ick bc of most managers I've met in my life but he argues to learn from a great manager and the majority obviously doesn't fall under that category
-3. Sales: fully agree - actually just texted my dad that he needs to unload more of his knowledge on me. He is one of the best salesmen I know. Importantly, this isn't the skill of selling people sth they don't need. It's convincing them of sth they should want (and sth that you wholeheartedly believe in).
-4. Finance: don't need to say much to this one - if you don't know how to spend, it doesn't matter how much you earn
-5. Spend time in other countries to learn how other people think
+1. communicating: oral or written communication is the foundational skill for everything else (you just need to practice it)
+2. management: this kind of gave me an ick bc of most managers I've met in my life but he argues to learn from a great manager and the majority obviously doesn't fall under that category
+3. sales: fully agree - actually just texted my dad that he needs to unload more of his knowledge on me. He is one of the best salesmen I know. Importantly, this isn't the skill of selling people sth they don't need. It's convincing them of sth they should want (and sth that you wholeheartedly believe in).
+4. finance: don't need to say much to this one - if you don't know how to spend, it doesn't matter how much you earn
+5. spend time in other countries to learn how other people think
 
 **Lastly, some notes on what industry to choose:**
 
@@ -58,6 +54,6 @@ Some advice on the types of skills he advises you to become good at:
 * get to the center of your industry (both the city and the company where all the action is happening)
 * every job will be a tactical and a strategical opportunity
 
-  * Tactical: kick ass and get people to sing praise of you for decades to come
-  * Strategical: learn everything about the industry you're in (how did things work 10 years ago, now, and 10 years from now; what should be done differently; if the creators of this industry were starting out today, what would they be doing now)
+  * tactical: kick ass and get people to sing praise of you for decades to come
+  * strategical: learn everything about the industry you're in (how did things work 10 years ago, now, and 10 years from now; what should be done differently; if the creators of this industry were starting out today, what would they be doing now)
 * learn from the greats by osmosis, don't try to figure them out ("you'll never change her but she'll change you")
