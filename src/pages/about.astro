@@ -50,7 +50,7 @@ import SplitPane from '../components/SplitPane.astro';
       <img
         src="/images/about/rowing-single.jpg"
         alt="Finn rowing a single scull below a hilltop fortress in Germany"
-        class="about-photo fade-in pos-left"
+        class="about-photo fade-in"
         width="1600"
         height="1199"
         loading="lazy"
@@ -58,7 +58,7 @@ import SplitPane from '../components/SplitPane.astro';
       <img
         src="/images/about/rowing-worlds-2021.jpg"
         alt="Finn on the podium at the 2021 World Rowing Junior Championships"
-        class="about-photo fade-in pos-right"
+        class="about-photo fade-in"
         width="1000"
         height="750"
         loading="lazy"
@@ -66,15 +66,15 @@ import SplitPane from '../components/SplitPane.astro';
       <img
         src="/images/about/stanford-bike.jpg"
         alt="Finn with his bike in Stanford's Main Quad"
-        class="about-photo fade-in pos-center"
-        width="1200"
-        height="1600"
+        class="about-photo fade-in"
+        width="1050"
+        height="1400"
         loading="lazy"
       />
       <img
         src="/images/about/skiing.jpg"
         alt="Finn skiing with his dad in the mountains"
-        class="about-photo fade-in pos-left"
+        class="about-photo fade-in"
         width="1200"
         height="1600"
         loading="lazy"
@@ -82,7 +82,7 @@ import SplitPane from '../components/SplitPane.astro';
       <img
         src="/images/about/whitney-summit.jpg"
         alt="Finn at a mountain summit while hiking"
-        class="about-photo fade-in pos-right"
+        class="about-photo fade-in"
         width="1200"
         height="1600"
         loading="lazy"
@@ -90,7 +90,7 @@ import SplitPane from '../components/SplitPane.astro';
       <img
         src="/images/about/graduation-parents.jpg"
         alt="Finn with his parents at Stanford graduation"
-        class="about-photo fade-in pos-center"
+        class="about-photo fade-in"
         width="1200"
         height="1600"
         loading="lazy"
@@ -98,7 +98,7 @@ import SplitPane from '../components/SplitPane.astro';
       <img
         src="/images/about/graduation-portrait.jpg"
         alt="Finn at his Stanford graduation"
-        class="about-photo fade-in pos-left"
+        class="about-photo fade-in"
         width="1055"
         height="1600"
         loading="lazy"
@@ -145,32 +145,37 @@ import SplitPane from '../components/SplitPane.astro';
   .about-images {
     display: flex;
     flex-direction: column;
-    gap: var(--space-8);
+    gap: var(--space-6);
+    align-items: flex-start;
   }
 
   .about-photo {
     display: block;
-    width: 50%;
+    width: 35%;
     height: auto;
     border: 1px solid var(--color-border);
   }
 
-  /* Staggered alignment down the column */
-  .about-photo.pos-left {
-    align-self: flex-start;
-  }
-
-  .about-photo.pos-center {
-    align-self: center;
-  }
-
-  .about-photo.pos-right {
-    align-self: flex-end;
-  }
+  /* Scattered, non-uniform placement down the column */
+  .about-images .about-photo:nth-child(1) { margin-left: 6%; }
+  .about-images .about-photo:nth-child(2) { margin-left: 50%; margin-top: var(--space-4); }
+  .about-images .about-photo:nth-child(3) { margin-left: 20%; }
+  .about-images .about-photo:nth-child(4) { margin-left: 58%; margin-top: var(--space-4); }
+  .about-images .about-photo:nth-child(5) { margin-left: 3%; }
+  .about-images .about-photo:nth-child(6) { margin-left: 40%; margin-top: var(--space-4); }
+  .about-images .about-photo:nth-child(7) { margin-left: 15%; }
 
   @media (max-width: 768px) {
     .about-photo {
-      width: 65%;
+      width: 60%;
+    }
+
+    .about-images .about-photo:nth-child(even) {
+      margin-left: 40%;
+    }
+
+    .about-images .about-photo:nth-child(odd) {
+      margin-left: 0;
     }
   }
 </style>
