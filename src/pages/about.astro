@@ -47,15 +47,62 @@ import SplitPane from '../components/SplitPane.astro';
     </div>
 
     <div slot="right" class="about-images">
-      <div class="image-placeholder fade-in">
-        <span class="mono">photo 1</span>
-      </div>
-      <div class="image-placeholder fade-in">
-        <span class="mono">photo 2</span>
-      </div>
-      <div class="image-placeholder fade-in">
-        <span class="mono">photo 3</span>
-      </div>
+      <img
+        src="/images/about/stanford-bike.jpg"
+        alt="Finn with his bike in Stanford's Main Quad"
+        class="about-photo fade-in pos-left"
+        width="1200"
+        height="1600"
+        loading="lazy"
+      />
+      <img
+        src="/images/about/graduation-parents.jpg"
+        alt="Finn with his parents at Stanford graduation"
+        class="about-photo fade-in pos-right"
+        width="1200"
+        height="1600"
+        loading="lazy"
+      />
+      <img
+        src="/images/about/graduation-portrait.jpg"
+        alt="Finn at his Stanford graduation"
+        class="about-photo fade-in pos-center"
+        width="1055"
+        height="1600"
+        loading="lazy"
+      />
+      <img
+        src="/images/about/whitney-summit.jpg"
+        alt="Finn at a mountain summit while hiking"
+        class="about-photo fade-in pos-left"
+        width="1200"
+        height="1600"
+        loading="lazy"
+      />
+      <img
+        src="/images/about/rowing-single.jpg"
+        alt="Finn rowing a single scull below a hilltop fortress in Germany"
+        class="about-photo fade-in pos-right"
+        width="1600"
+        height="1199"
+        loading="lazy"
+      />
+      <img
+        src="/images/about/rowing-worlds-2021.jpg"
+        alt="Finn on the podium at the 2021 World Rowing Junior Championships"
+        class="about-photo fade-in pos-center"
+        width="1600"
+        height="899"
+        loading="lazy"
+      />
+      <img
+        src="/images/about/skiing.jpg"
+        alt="Finn skiing in the mountains"
+        class="about-photo fade-in pos-left"
+        width="1200"
+        height="1600"
+        loading="lazy"
+      />
     </div>
   </SplitPane>
 </PageLayout>
@@ -98,17 +145,32 @@ import SplitPane from '../components/SplitPane.astro';
   .about-images {
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
+    gap: var(--space-8);
   }
 
-  .image-placeholder {
-    aspect-ratio: 4/3;
+  .about-photo {
+    display: block;
+    width: 50%;
+    height: auto;
     border: 1px solid var(--color-border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-text-secondary);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
+  }
+
+  /* Staggered alignment down the column */
+  .about-photo.pos-left {
+    align-self: flex-start;
+  }
+
+  .about-photo.pos-center {
+    align-self: center;
+  }
+
+  .about-photo.pos-right {
+    align-self: flex-end;
+  }
+
+  @media (max-width: 768px) {
+    .about-photo {
+      width: 65%;
+    }
   }
 </style>
