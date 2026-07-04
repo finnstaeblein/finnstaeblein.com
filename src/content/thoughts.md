@@ -2,9 +2,20 @@ A running list of things on my mind.
 
 - - -
 
-13-04-2026
+04-07-2026
 
-Mythos gets a lot of attention bc it’s able to detect cybersecurity vulnerabilities better than most cybersecurity experts. Note that mythos wasn’t trained specifically for cybersecurity. The reason it’s good at cybersecurity is bc it’s good at everything. Most cybersecurity experts I’ve met are pretty smart. Definitely smarter than the average. So if mythos is so much better than they, what do you think it will do to mind-numbing office jobs? I get less and less convinced that it will take a lot of time for AI to diffuse through the economy. Historically, this was true for technological innovation bc the improvement of email over fax machine was marginal (maybe a speedup by 2-3x?). That's why they still fucking use them in German government. However, this isn’t true here. Mythos could probably do 90% of jobs much better than me. By a magnitude of 10-100x.
+* How Shopify saves token-cost
+
+  1. Distillation: distill a larger teacher model into a smaller student model — generate outputs with the teacher and train the student to match them, yielding similar or improved performance on narrow tasks
+  2. Gisting: train the student models to shrink prompt size by giving them a small number of tokens during training that represent the longer prompt
+  3. Model routing: automatically send each request to the cheapest model that can handle it (trivial tasks go to the tiny distilled/open model)
+
+09-06-2026
+
+* Compression is Information
+
+  * LLMs are ~3x better at compressing files than DEFLATE (encoding used for .zip files); but takes thousands of times longer
+  * mathematically, if you can predict, you can compress (while attention-mechanism for compression is infeasible, this explains why much of what Shannon was doing is now used in modern ML: e.g. cross-entropy, KL)
 
 14-04-2026
 
@@ -13,9 +24,6 @@ Mythos gets a lot of attention bc it’s able to detect cybersecurity vulnerabil
   * Anthropic's rev more than doubled from February to April 2026 (14->30B)
   * Anthropic notes that if no other company has released a model with “significant capabilities,” then it will delay its release of a model with significant capabilities until either it has a strong argument to proceed with deployment or it loses the lead
 
-09-06-2026
+13-04-2026
 
-* Compression is Information
-
-  * LLMs are ~3x better at compressing files than DEFLATE (encoding used for .zip files); but takes thousands of times longer
-  * mathematically, if you can predict, you can compress (while attention-mechanism for compression is infeasible, this explains why much of what Shannon was doing is now used in modern ML: e.g. cross-entropy, KL)
+Mythos gets a lot of attention bc it’s able to detect cybersecurity vulnerabilities better than most cybersecurity experts. Note that mythos wasn’t trained specifically for cybersecurity. The reason it’s good at cybersecurity is bc it’s good at everything. Most cybersecurity experts I’ve met are pretty smart. Definitely smarter than the average. So if mythos is so much better than they, what do you think it will do to mind-numbing office jobs? I get less and less convinced that it will take a lot of time for AI to diffuse through the economy. Historically, this was true for technological innovation bc the improvement of email over fax machine was marginal (maybe a speedup by 2-3x?). That's why they still fucking use them in German government. However, this isn’t true here. Mythos could probably do 90% of jobs much better than me. By a magnitude of 10-100x.
