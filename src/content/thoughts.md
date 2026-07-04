@@ -4,7 +4,7 @@ A running list of things on my mind.
 
 04-07-2026
 
-* How Shopify saves token-cost
+* How AI-pilled companies save token cost
 
   1. Distillation: distill a larger teacher model into a smaller student model — generate outputs with the teacher and train the student to match them, yielding similar or improved performance on narrow tasks
   2. Gisting: train the student models to shrink prompt size by giving them a small number of tokens during training that represent the longer prompt
