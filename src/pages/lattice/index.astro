@@ -1,0 +1,223 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import LatticeCard from '../../components/LatticeCard.astro';
+import { getCollection } from 'astro:content';
+
+const themes = ['ai', 'strategy', 'gtm', 'epistemics'] as const;
+const themeLabels: Record<string, string> = {
+  ai: 'AI',
+  strategy: 'Strategy',
+  gtm: 'GTM',
+  epistemics: 'Epistemics',
+};
+const themeOrder: Record<string, number> = { ai: 0, strategy: 1, gtm: 2, epistemics: 3 };
+
+const all = await getCollection('lattice', ({ data }) => !data.draft);
+const entries = all.sort((a, b) => {
+  const t = (themeOrder[a.data.theme] ?? 9) - (themeOrder[b.data.theme] ?? 9);
+  return t !== 0 ? t : a.data.title.localeCompare(b.data.title);
+});
+---
+
+<PageLayout title="Lattice — Finn Stäblein" description="A lattice of mental models and frameworks I'm picking up.">
+  <div class="lattice-page">
+    <div class="lattice-header">
+      <h1>Lattice</h1>
+      <p class="lattice-intro">
+        A growing lattice of mental models and frameworks I'm picking up — mostly from
+        working with <a href="https://www.floodgate.com/" class="contact-link" target="_blank" rel="noopener noreferrer">Mike Maples</a> at Floodgate — distilled to what's mine to share.
+        Six threads run through most of it:
+      </p>
+      <ol class="lattice-threads">
+        <li>Abundance creates the next scarcity.</li>
+        <li>Adaptive beats intelligent design — define objective functions, not algorithms.</li>
+        <li>In the agentic era, the moat is verification.</li>
+        <li>Powers are earned via paths, not declared.</li>
+        <li>Tempo control wins deals.</li>
+        <li>Knowledge is combinatory play.</li>
+      </ol>
+    </div>
+
+    <div class="lattice-controls">
+      <div class="filter-buttons" role="group" aria-label="Filter by theme">
+        {themes.map(t => (
+          <button class="filter-btn" data-filter={t}>{themeLabels[t]}</button>
+        ))}
+      </div>
+      <span class="mono lattice-count" id="lattice-count">{entries.length} entries</span>
+    </div>
+
+    <div class="lattice-table">
+      <div class="table-header">
+        <span class="col-index mono">No.</span>
+        <span class="col-title">Term</span>
+        <span class="col-summary">What it means</span>
+        <span class="col-theme mono">Theme</span>
+      </div>
+
+      <div id="lattice-list">
+        {entries.map((entry, i) => (
+          <LatticeCard
+            id={entry.id}
+            index={i + 1}
+            title={entry.data.title}
+            summary={entry.data.summary}
+            theme={entry.data.theme}
+          />
+        ))}
+      </div>
+    </div>
+
+    <p class="no-results" id="no-results" style="display: none;">No entries found.</p>
+  </div>
+</PageLayout>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+    const list = document.getElementById('lattice-list');
+    const countEl = document.getElementById('lattice-count');
+    const noResults = document.getElementById('no-results');
+    if (!list) return;
+
+    const cards = list.querySelectorAll<HTMLAnchorElement>('.lattice-row');
+    let activeTheme: string | null = null;
+
+    function apply() {
+      let visible = 0;
+      cards.forEach(card => {
+        const show = !activeTheme || card.dataset.theme === activeTheme;
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      if (countEl) countEl.textContent = `${visible} entr${visible !== 1 ? 'ies' : 'y'}`;
+      if (noResults) noResults.style.display = visible === 0 ? '' : 'none';
+    }
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter || '';
+        if (activeTheme === filter) {
+          activeTheme = null;
+          btn.classList.remove('active');
+        } else {
+          activeTheme = filter;
+          filterButtons.forEach(b => b.classList.toggle('active', b === btn));
+        }
+        apply();
+      });
+    });
+
+    apply();
+  });
+</script>
+
+<style>
+  .lattice-page {
+    max-width: var(--max-width);
+  }
+
+  .lattice-header h1 {
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    margin-bottom: var(--space-4);
+  }
+
+  .lattice-intro {
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    max-width: 640px;
+    margin-bottom: var(--space-3);
+  }
+
+  .contact-link {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .contact-link:hover {
+    color: var(--color-accent);
+  }
+
+  .lattice-threads {
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    max-width: 640px;
+    margin: 0 0 var(--space-8);
+    padding-left: var(--space-6);
+  }
+
+  .lattice-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-4);
+  }
+
+  .filter-buttons {
+    display: flex;
+    gap: var(--space-4);
+  }
+
+  .filter-btn {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    padding: 0;
+    transition: color var(--duration-fast) ease;
+  }
+
+  .filter-btn:hover {
+    color: var(--color-text);
+  }
+
+  .filter-btn.active {
+    color: var(--color-accent);
+  }
+
+  .lattice-count {
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+  }
+
+  .lattice-table {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .table-header {
+    display: grid;
+    grid-template-columns: 36px 220px 1fr 90px;
+    gap: var(--space-4);
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--color-text-secondary);
+  }
+
+  .table-header .col-theme {
+    text-align: right;
+  }
+
+  .no-results {
+    text-align: center;
+    color: var(--color-text-secondary);
+    padding: var(--space-16) 0;
+    font-size: var(--text-sm);
+  }
+
+  @media (max-width: 640px) {
+    .table-header {
+      grid-template-columns: 36px 1fr 72px;
+    }
+    .table-header .col-summary {
+      display: none;
+    }
+  }
+</style>

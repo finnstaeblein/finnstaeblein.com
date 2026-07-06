@@ -33,19 +33,18 @@ collections:
         fields:
           - { label: "Body", name: "body", widget: "markdown" }
 
-  - name: "projects"
-    label: "Projects"
-    folder: "src/content/projects"
+  - name: "lattice"
+    label: "Lattice"
+    folder: "src/content/lattice"
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Title", name: "title", widget: "string", hint: "The concept / term" }
+      - { label: "Theme", name: "theme", widget: "select", options: ["ai", "strategy", "gtm", "epistemics"] }
+      - { label: "Summary", name: "summary", widget: "string", hint: "The decoded one-liner" }
+      - { label: "Source", name: "source", widget: "string", required: false, hint: "Who it's from (e.g. Mike Maples, Karl Popper)" }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Related", name: "related", widget: "list", required: false, hint: "Slugs of related entries" }
       - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
-      - { label: "Repo URL", name: "repo", widget: "string", required: false }
-      - { label: "Live URL", name: "link", widget: "string", required: false }
-      - { label: "Tech Stack", name: "stack", widget: "list", required: false }
-      - { label: "Order", name: "order", widget: "number", value_type: "int", default: 0, required: false }
-      - { label: "Featured", name: "featured", widget: "boolean", default: false, required: false }
       - { label: "Draft", name: "draft", widget: "boolean", default: false, required: false }
       - { label: "Body", name: "body", widget: "markdown" }

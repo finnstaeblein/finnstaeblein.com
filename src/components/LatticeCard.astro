@@ -3,27 +3,37 @@ interface Props {
   id: string;
   index: number;
   title: string;
-  description: string;
-  date: Date;
-  stack?: string[];
+  summary: string;
+  theme: string;
 }
 
-const { id, index, title, description, date, stack = [] } = Astro.props;
+const { id, index, title, summary, theme } = Astro.props;
 const indexStr = String(index).padStart(2, '0');
-const year = date.getFullYear();
+
+const themeLabels: Record<string, string> = {
+  ai: 'AI',
+  strategy: 'Strategy',
+  gtm: 'GTM',
+  epistemics: 'Epistemics',
+};
 ---
 
-<a href={`/projects/${id}`} class="project-row">
+<a
+  href={`/lattice/${id}`}
+  class="lattice-row note-row"
+  data-theme={theme}
+  data-title={title.toLowerCase()}
+>
   <span class="col-index mono">{indexStr}</span>
   <span class="col-title">{title}</span>
-  <span class="col-desc">{description}</span>
-  <span class="col-year mono">{year}</span>
+  <span class="col-summary">{summary}</span>
+  <span class="col-theme mono">{themeLabels[theme] ?? theme}</span>
 </a>
 
 <style>
-  .project-row {
+  .lattice-row {
     display: grid;
-    grid-template-columns: 36px 200px 1fr 60px;
+    grid-template-columns: 36px 220px 1fr 90px;
     gap: var(--space-4);
     align-items: baseline;
     padding: var(--space-2) 0;
@@ -32,7 +42,7 @@ const year = date.getFullYear();
     transition: color var(--duration-fast) ease;
   }
 
-  .project-row:hover {
+  .lattice-row:hover {
     color: var(--color-accent);
   }
 
@@ -41,7 +51,7 @@ const year = date.getFullYear();
     color: var(--color-text-secondary);
   }
 
-  .project-row:hover .col-index {
+  .lattice-row:hover .col-index {
     color: var(--color-accent);
   }
 
@@ -49,32 +59,32 @@ const year = date.getFullYear();
     font-weight: 400;
   }
 
-  .col-desc {
+  .col-summary {
     color: var(--color-text-secondary);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  .project-row:hover .col-desc {
+  .lattice-row:hover .col-summary {
     color: var(--color-accent);
   }
 
-  .col-year {
+  .col-theme {
     font-size: var(--text-xs);
     text-align: right;
     color: var(--color-text-secondary);
   }
 
-  .project-row:hover .col-year {
+  .lattice-row:hover .col-theme {
     color: var(--color-accent);
   }
 
   @media (max-width: 640px) {
-    .project-row {
-      grid-template-columns: 36px 1fr 48px;
+    .lattice-row {
+      grid-template-columns: 36px 1fr 72px;
     }
-    .col-desc {
+    .col-summary {
       display: none;
     }
   }

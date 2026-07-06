@@ -18,19 +18,16 @@ const notes = defineCollection({
   }),
 });
 
-const projects = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
+const lattice = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/lattice' }),
   schema: z.object({
     title: z.string(),
-    description: z.string(),
+    theme: z.enum(['ai', 'strategy', 'gtm', 'epistemics']),
+    summary: z.string(),
+    source: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+    related: z.array(z.string()).default([]),
     date: z.coerce.date(),
-    endDate: z.coerce.date().optional(),
-    repo: z.string().url().optional(),
-    link: z.string().url().optional(),
-    image: z.string().optional(),
-    stack: z.array(z.string()).default([]),
-    order: z.number().default(0),
-    featured: z.boolean().default(false),
     draft: z.boolean().default(false),
   }),
 });
@@ -40,4 +37,4 @@ const thoughts = defineCollection({
   schema: z.object({}),
 });
 
-export const collections = { notes, projects, thoughts };
+export const collections = { notes, lattice, thoughts };
