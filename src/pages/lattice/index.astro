@@ -81,7 +81,13 @@ const entries = all.sort((a, b) => {
     if (!list) return;
 
     const cards = list.querySelectorAll<HTMLAnchorElement>('.lattice-row');
-    let activeTheme: string | null = null;
+
+    // Default to the 'tech' filter on first load; remember the last choice.
+    let activeTheme: string | null = sessionStorage.getItem('lattice-filter') || 'tech';
+
+    function setActiveButton() {
+      filterButtons.forEach(b => b.classList.toggle('active', b.dataset.filter === activeTheme));
+    }
 
     function apply() {
       let visible = 0;
@@ -99,15 +105,17 @@ const entries = all.sort((a, b) => {
         const filter = btn.dataset.filter || '';
         if (activeTheme === filter) {
           activeTheme = null;
-          btn.classList.remove('active');
+          sessionStorage.removeItem('lattice-filter');
         } else {
           activeTheme = filter;
-          filterButtons.forEach(b => b.classList.toggle('active', b === btn));
+          sessionStorage.setItem('lattice-filter', filter);
         }
+        setActiveButton();
         apply();
       });
     });
 
+    setActiveButton();
     apply();
   });
 </script>
