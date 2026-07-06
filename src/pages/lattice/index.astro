@@ -3,14 +3,14 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import LatticeCard from '../../components/LatticeCard.astro';
 import { getCollection } from 'astro:content';
 
-const themes = ['ai', 'strategy', 'gtm', 'epistemics'] as const;
+const themes = ['tech', 'strategy', 'gtm', 'epistemics'] as const;
 const themeLabels: Record<string, string> = {
-  ai: 'AI',
+  tech: 'Tech',
   strategy: 'Strategy',
   gtm: 'GTM',
   epistemics: 'Epistemics',
 };
-const themeOrder: Record<string, number> = { ai: 0, strategy: 1, gtm: 2, epistemics: 3 };
+const themeOrder: Record<string, number> = { tech: 0, strategy: 1, gtm: 2, epistemics: 3 };
 
 const all = await getCollection('lattice', ({ data }) => !data.draft);
 const entries = all.sort((a, b) => {

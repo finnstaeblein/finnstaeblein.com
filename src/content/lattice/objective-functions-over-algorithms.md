@@ -1,6 +1,6 @@
 ---
 title: "Objective Functions over Algorithms"
-theme: ai
+theme: tech
 summary: "Increasingly you don't write the algorithm — you define the goal and let the system iterate toward it."
 source: "Mike Maples"
 tags: [agents, optimization, loops]

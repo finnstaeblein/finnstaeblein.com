@@ -1,6 +1,6 @@
 ---
 title: "The Bitter Lesson"
-theme: ai
+theme: tech
 summary: "General methods that scale with compute beat hand-coded human knowledge — over the medium term."
 source: "Richard Sutton"
 tags: [scaling, compute, learning]

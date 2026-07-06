@@ -1,6 +1,6 @@
 ---
 title: "Asymptotically-Free Inference"
-theme: ai
+theme: tech
 summary: "The cost of running a model trends toward zero — so the edge moves to whatever stays scarce when inference is free."
 source: "Mike Maples"
 tags: [inference, cost, jevons]
