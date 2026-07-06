@@ -40,7 +40,7 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: "Title", name: "title", widget: "string", hint: "The concept / term" }
-      - { label: "Theme", name: "theme", widget: "select", options: ["tech", "strategy", "gtm", "epistemics"] }
+      - { label: "Theme", name: "theme", widget: "select", options: ["tech", "strategy", "gtm", "epistemics", "investing"] }
       - { label: "Summary", name: "summary", widget: "string", hint: "The decoded one-liner" }
       - { label: "Source", name: "source", widget: "string", required: false, hint: "Who it's from (e.g. Mike Maples, Karl Popper)" }
       - { label: "Tags", name: "tags", widget: "list", required: false }
