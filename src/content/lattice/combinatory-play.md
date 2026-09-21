@@ -1,6 +1,6 @@
 ---
 title: "Combinatory Play"
-theme: epistemics
+theme: other
 summary: "Remix mental models across books and domains — with an LLM as cross-referencer — to find non-obvious connections."
 source: "Mike Maples"
 tags: [learning, creativity, mental-models]

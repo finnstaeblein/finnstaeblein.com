@@ -1,6 +1,6 @@
 ---
 title: "Generative vs. Acceptance AI"
-theme: tech
+theme: other
 summary: "Generative AI creates outputs; 'acceptance' AI decides which outputs to trust. The acceptance layer is underbuilt."
 source: "Mike Maples"
 tags: [verification, trust, judgment]

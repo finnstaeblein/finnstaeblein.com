@@ -1,6 +1,6 @@
 ---
 title: "Credibly-Neutral Verification"
-theme: strategy
+theme: other
 summary: "A 'Switzerland' third party that certifies agentic work with no vendor agenda — an Okta or Moody's for AI output."
 source: "Mike Maples"
 tags: [verification, trust, neutrality]

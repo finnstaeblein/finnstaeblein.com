@@ -1,6 +1,6 @@
 ---
 title: "Activation Energy"
-theme: gtm
+theme: other
 summary: "The cultural leap from zero to one real deployed customer — the hardest, most catalytic step."
 tags: [adoption, sales]
 related: [lighthouse-customers]

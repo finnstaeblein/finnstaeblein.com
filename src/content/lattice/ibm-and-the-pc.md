@@ -1,6 +1,6 @@
 ---
 title: "IBM and the PC"
-theme: strategy
+theme: other
 summary: "In a modular system, value concentrates in the layer that can't be swapped out — IBM ended up owning PC assembly (a commodity) while Intel (chip) and Microsoft (OS) owned the bottlenecks."
 tags: [ibm, modularity, commoditization, moats, history]
 related: [shifting-bottleneck, abundance-to-scarcity]

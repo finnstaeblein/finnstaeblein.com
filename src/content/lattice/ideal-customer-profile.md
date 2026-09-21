@@ -1,6 +1,6 @@
 ---
 title: "Ideal Customer Profile"
-theme: gtm
+theme: other
 summary: "Narrow who you sell to first — a sharp ICP compounds; a broad one dilutes learning and proof."
 tags: [sales, positioning, icp]
 related: [dont-ask-tell]

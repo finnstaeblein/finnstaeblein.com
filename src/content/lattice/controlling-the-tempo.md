@@ -1,6 +1,6 @@
 ---
 title: "Controlling the Tempo"
-theme: gtm
+theme: other
 summary: "If delay is free, customers delay forever — so engineer a forcing function: a hard date and limited slots."
 source: "Mike Maples"
 tags: [sales, urgency, forcing-function]
