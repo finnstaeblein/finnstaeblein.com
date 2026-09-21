@@ -1,6 +1,6 @@
 ---
 title: "Durability vs. Momentum"
-theme: investing
+theme: other
 summary: "Underwrite rounds on durability, not momentum — high durability paired with low momentum often means a cheaper entry."
 tags: [investing, deal-selection, valuation]
 related: [super-thinking-super-building]

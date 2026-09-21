@@ -1,6 +1,6 @@
 ---
 title: "The OODA Loop"
-theme: epistemics
+theme: other
 summary: "Observe–Orient–Decide–Act: don't decide and act before you've genuinely observed and oriented."
 source: "John Boyd"
 tags: [decision-making, strategy]

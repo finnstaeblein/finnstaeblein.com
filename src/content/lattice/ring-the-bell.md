@@ -1,6 +1,6 @@
 ---
 title: "Ring the Bell"
-theme: gtm
+theme: other
 summary: "Define exactly what pilot success is before it starts — then prove those precise criteria were hit."
 tags: [sales, pilots, success-criteria]
 related: [lighthouse-customers, controlling-the-tempo]

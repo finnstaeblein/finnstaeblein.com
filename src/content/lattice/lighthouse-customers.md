@@ -1,6 +1,6 @@
 ---
 title: "Lighthouse Customers"
-theme: gtm
+theme: other
 summary: "Structured early-customer relationships with explicit phases and success criteria — not casual pilots."
 tags: [sales, pilots, references]
 related: [ring-the-bell, activation-energy, controlling-the-tempo]

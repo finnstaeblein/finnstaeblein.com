@@ -3,15 +3,17 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import LatticeCard from '../../components/LatticeCard.astro';
 import { getCollection } from 'astro:content';
 
-const themes = ['tech', 'strategy', 'gtm', 'epistemics', 'investing'] as const;
+const themes = ['math', 'engineering', 'accounting', 'bio', 'physiology', 'psychology', 'other'] as const;
 const themeLabels: Record<string, string> = {
-  tech: 'Tech',
-  strategy: 'Strategy',
-  gtm: 'GTM',
-  epistemics: 'Epistemics',
-  investing: 'Investing',
+  math: 'Math',
+  engineering: 'Engineering',
+  accounting: 'Accounting',
+  bio: 'Bio',
+  physiology: 'Physiology',
+  psychology: 'Psychology',
+  other: 'Other',
 };
-const themeOrder: Record<string, number> = { tech: 0, strategy: 1, gtm: 2, epistemics: 3, investing: 4 };
+const themeOrder: Record<string, number> = { math: 0, engineering: 1, accounting: 2, bio: 3, physiology: 4, psychology: 5, other: 6 };
 
 const all = await getCollection('lattice', ({ data }) => !data.draft);
 const entries = all.sort((a, b) => {
@@ -25,18 +27,8 @@ const entries = all.sort((a, b) => {
     <div class="lattice-header">
       <h1>Lattice</h1>
       <p class="lattice-intro">
-        A growing lattice of mental models and frameworks I'm picking up — mostly from
-        working with <a href="https://www.floodgate.com/" class="contact-link" target="_blank" rel="noopener noreferrer">Mike Maples</a> at Floodgate — distilled to what's mine to share.
-        Six threads run through most of it:
+        A growing lattice of mental models across disciplines — rooted in Charlie Munger's idea that genuine understanding comes from building a latticework of world models, not from one-dimensional expertise. Most of the entries below live under "Other" for now; I'm sorting them into Math, Engineering, Accounting, Bio, Physiology, and Psychology as I go.
       </p>
-      <ol class="lattice-threads">
-        <li>Abundance creates the next scarcity.</li>
-        <li>Adaptive beats intelligent design — define objective functions, not algorithms.</li>
-        <li>In the agentic era, the moat is verification.</li>
-        <li>Powers are earned via paths, not declared.</li>
-        <li>Tempo control wins deals.</li>
-        <li>Knowledge is combinatory play.</li>
-      </ol>
     </div>
 
     <div class="lattice-controls">
@@ -83,8 +75,8 @@ const entries = all.sort((a, b) => {
 
     const cards = list.querySelectorAll<HTMLAnchorElement>('.lattice-row');
 
-    // Default to the 'tech' filter on first load; remember the last choice.
-    let activeTheme: string | null = sessionStorage.getItem('lattice-filter') || 'tech';
+    // No default filter on first load; remember the last choice.
+    let activeTheme: string | null = sessionStorage.getItem('lattice-filter') || null;
 
     function setActiveButton() {
       filterButtons.forEach(b => b.classList.toggle('active', b.dataset.filter === activeTheme));
@@ -137,29 +129,10 @@ const entries = all.sort((a, b) => {
     line-height: 1.6;
     color: var(--color-text-secondary);
     max-width: 640px;
-    margin-bottom: var(--space-3);
+    margin-bottom: var(--space-8);
   }
 
   .contact-link {
-    color: var(--color-text);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  .contact-link:hover {
-    color: var(--color-accent);
-  }
-
-  .lattice-threads {
-    font-size: var(--text-sm);
-    line-height: 1.6;
-    color: var(--color-text-secondary);
-    max-width: 640px;
-    margin: 0 0 var(--space-8);
-    padding-left: var(--space-6);
-  }
-
-  .lattice-controls {
     display: flex;
     justify-content: space-between;
     align-items: center;

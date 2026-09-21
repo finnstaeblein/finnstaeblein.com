@@ -1,6 +1,6 @@
 ---
 title: "Abundance → Scarcity"
-theme: strategy
+theme: other
 summary: "When technology makes X abundant, a complementary Y becomes scarce — and that's where the monopoly forms."
 source: "Mike Maples"
 tags: [moats, monopoly, platforms]

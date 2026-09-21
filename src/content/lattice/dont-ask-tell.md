@@ -1,6 +1,6 @@
 ---
 title: "Don't Ask, Tell"
-theme: gtm
+theme: other
 summary: "Customers often can't spec their own needs — lead them with a framework instead of asking what they want."
 source: "Mike Maples"
 tags: [sales, positioning, leadership]

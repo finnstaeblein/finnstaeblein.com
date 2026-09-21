@@ -1,6 +1,6 @@
 ---
 title: "Conjectures and Refutations"
-theme: epistemics
+theme: other
 summary: "Knowledge grows by bold conjectures exposed to hard refutation — the engine under iterative 'loops.'"
 source: "Karl Popper"
 tags: [epistemology, popper, explanations]

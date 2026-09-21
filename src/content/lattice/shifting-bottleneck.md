@@ -1,6 +1,6 @@
 ---
 title: "The Shifting Bottleneck"
-theme: strategy
+theme: other
 summary: "There's always a bottleneck; when technology moves it, build where it's about to land."
 source: "Mike Maples"
 tags: [timing, constraints]

@@ -1,6 +1,6 @@
 ---
 title: "Super Thinking & Super Building"
-theme: investing
+theme: other
 summary: "Two founder qualities to underwrite: super thinking (seeing ten steps ahead) and super building (throwing an idea away and rebuilding)."
 tags: [investing, founders]
 related: [durability-vs-momentum]
