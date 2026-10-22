@@ -22,7 +22,7 @@ const lattice = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/lattice' }),
   schema: z.object({
     title: z.string(),
-    theme: z.enum(['math', 'engineering', 'accounting', 'bio', 'physiology', 'psychology', 'other']),
+    theme: z.enum(['math', 'physics', 'chemistry', 'bio', 'engineering', 'accounting', 'economics', 'psychology', 'cross', 'tricks', 'other']),
     summary: z.string(),
     source: z.string().optional(),
     tags: z.array(z.string()).default([]),

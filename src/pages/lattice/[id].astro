@@ -14,12 +14,16 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 
 const themeLabels: Record<string, string> = {
-  math: 'Math',
+  math: 'Mathematics',
+  physics: 'Physics',
+  chemistry: 'Chemistry',
+  bio: 'Biology',
   engineering: 'Engineering',
   accounting: 'Accounting',
-  bio: 'Bio',
-  physiology: 'Physiology',
+  economics: 'Economics',
   psychology: 'Psychology',
+  cross: 'Cross-discipline',
+  tricks: 'Mental Tricks',
   other: 'Other',
 };
 
