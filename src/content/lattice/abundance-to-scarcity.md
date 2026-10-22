@@ -1,10 +1,15 @@
 ---
-title: "Abundance → Scarcity"
+title: Abundance → Scarcity
 theme: other
-summary: "When technology makes X abundant, a complementary Y becomes scarce — and that's where the monopoly forms."
-source: "Mike Maples"
-tags: [moats, monopoly, platforms]
-related: [shifting-bottleneck, asymptotically-free-inference, credibly-neutral-verification]
+summary: When technology makes X abundant, a complementary Y becomes scarce —
+  and that's where the monopoly forms.
+source: Mike Maples
+tags:
+  - moats
+  - monopoly
+  - platforms
+related:
+  - asymptotically-free-inferenc
 date: 2026-07-05
 ---
 
