@@ -1,8 +1,8 @@
 ---
 title: Adaptation
 theme: bio
-summary: Traits shaped by the environment to improve survival through the height
-  of reproductive age.
+summary: Traits shaped by the environment to improve survival through the end of
+  reproductive age.
 related:
   - evolution by natural selection
   - selective pressure
