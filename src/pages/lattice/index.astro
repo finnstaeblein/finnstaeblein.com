@@ -3,17 +3,20 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import LatticeCard from '../../components/LatticeCard.astro';
 import { getCollection } from 'astro:content';
 
-const themes = ['math', 'engineering', 'accounting', 'bio', 'physiology', 'psychology', 'other'] as const;
+const themes = ['math', 'physics', 'chemistry', 'bio', 'engineering', 'accounting', 'economics', 'psychology', 'cross', 'other'] as const;
 const themeLabels: Record<string, string> = {
-  math: 'Math',
+  math: 'Mathematics',
+  physics: 'Physics',
+  chemistry: 'Chemistry',
+  bio: 'Biology',
   engineering: 'Engineering',
   accounting: 'Accounting',
-  bio: 'Bio',
-  physiology: 'Physiology',
+  economics: 'Economics',
   psychology: 'Psychology',
+  cross: 'Cross-discipline',
   other: 'Other',
 };
-const themeOrder: Record<string, number> = { math: 0, engineering: 1, accounting: 2, bio: 3, physiology: 4, psychology: 5, other: 6 };
+const themeOrder: Record<string, number> = { math: 0, physics: 1, chemistry: 2, bio: 3, engineering: 4, accounting: 5, economics: 6, psychology: 7, cross: 8, other: 9 };
 
 const all = await getCollection('lattice', ({ data }) => !data.draft);
 const entries = all.sort((a, b) => {
@@ -27,7 +30,7 @@ const entries = all.sort((a, b) => {
     <div class="lattice-header">
       <h1>Lattice</h1>
       <p class="lattice-intro">
-        A growing lattice of mental models across disciplines — rooted in Charlie Munger's idea that genuine understanding comes from building a latticework of world models, not from one-dimensional expertise. Most of the entries below live under "Other" for now; I'm sorting them into Math, Engineering, Accounting, Bio, Physiology, and Psychology as I go.
+        A growing lattice of mental models across disciplines — rooted in Charlie Munger's idea that worldly wisdom comes from a latticework of models drawn from every major discipline, not from one-dimensional expertise. Mathematics is shown by default; pick any other discipline to explore its models.
       </p>
     </div>
 
@@ -75,8 +78,8 @@ const entries = all.sort((a, b) => {
 
     const cards = list.querySelectorAll<HTMLAnchorElement>('.lattice-row');
 
-    // No default filter on first load; remember the last choice.
-    let activeTheme: string | null = sessionStorage.getItem('lattice-filter') || null;
+    // Default to Mathematics on first load; remember the last choice within a session.
+    let activeTheme: string | null = sessionStorage.getItem('lattice-filter') || 'math';
 
     function setActiveButton() {
       filterButtons.forEach(b => b.classList.toggle('active', b.dataset.filter === activeTheme));
