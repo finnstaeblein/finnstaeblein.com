@@ -3,7 +3,7 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import LatticeCard from '../../components/LatticeCard.astro';
 import { getCollection } from 'astro:content';
 
-const themes = ['math', 'physics', 'chemistry', 'bio', 'engineering', 'accounting', 'economics', 'psychology', 'cross', 'other'] as const;
+const themes = ['math', 'physics', 'chemistry', 'bio', 'engineering', 'accounting', 'economics', 'psychology', 'cross', 'tricks', 'other'] as const;
 const themeLabels: Record<string, string> = {
   math: 'Mathematics',
   physics: 'Physics',
@@ -14,9 +14,10 @@ const themeLabels: Record<string, string> = {
   economics: 'Economics',
   psychology: 'Psychology',
   cross: 'Cross-discipline',
+  tricks: 'Mental Tricks',
   other: 'Other',
 };
-const themeOrder: Record<string, number> = { math: 0, physics: 1, chemistry: 2, bio: 3, engineering: 4, accounting: 5, economics: 6, psychology: 7, cross: 8, other: 9 };
+const themeOrder: Record<string, number> = { math: 0, physics: 1, chemistry: 2, bio: 3, engineering: 4, accounting: 5, economics: 6, psychology: 7, cross: 8, tricks: 9, other: 10 };
 
 const all = await getCollection('lattice', ({ data }) => !data.draft);
 const entries = all.sort((a, b) => {
